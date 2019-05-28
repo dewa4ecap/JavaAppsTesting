@@ -1,0 +1,193 @@
+<table border="0" width="100%">
+    <tr>
+        <!--td valign="top">
+        </td-->
+        <td valign="top">
+            <table class="widgetBox">
+                <tr>
+                    <td colspan="3" bgcolor="#AAAEAA">
+                        <span class="widgetTitle">Spreadsheet Generation</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" width="700px">
+                        <table width="100%">
+                          
+                            <!--tr>
+                                <td colspan="2">
+                                    <strong>Security:</strong>
+                                    <br>
+                                    <small >
+                                        for multiple contracts use either comma (,) or Enter.  Leave empty if you do not want to specify
+                                    </small>
+                                    <br>
+                                    <textarea id="st_a_contractsxl" cols="100" rows="8"></textarea>
+                                </td>
+                            </tr-->
+                            <!--tr>
+                            <td width="50%" align="right">
+                            <strong>Commodity:</strong>
+                            </td>
+                            <td>
+                            <select id="st_a_allTablesxl" onchange="st_a_onSelectTablexl()">
+                            <option value="">---Select Commodity--</option>
+                            </select>
+                            </td>
+                            </tr-->
+                            <tr>
+                                <td colspan="2" align="left">
+                                    <table class="widgetCommodity" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Security:</strong>
+                                            </td>
+                                            <td colspan="2">
+                                                Selected Securities
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <ul id="strategy_a_comm_source" class="draglistwide">
+                                                </ul>
+												<small>
+                                                    Double click item for more info
+                                                </small>
+                                            </td>
+                                            <td valign="middle" align="center" style="width:30px">
+                                                <small>
+                                                    Drag & drop item
+                                                </small>
+                                                <br>
+                                                <input type="button" value=">>" onclick="strategy_a_CommDND.selectAll();">
+                                                <br>
+                                                <input type="button" value="<<" onclick="strategy_a_CommDND.deSelectAll();">
+                                            </td>
+                                            <td valign="top">
+                                                <ul id="strategy_a_comm_target" class="draglistwide">
+                                                </ul>
+                                            </td>
+                                            <td valign="top" style="width:150px;padding-left:2px">
+                                                <textarea id="strategy_a_comm_target1" cols="30" rows="12"></textarea>
+                                                <small>
+                                                    Also you can specify. Use either comma or Enter for multiple items
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+							<tr> 
+								<td colspan="2" align="left">
+									<div id="strategy_a_ticker_info_pn"  style="display:none; border:2px solid gray; margin:5px; width:800px">
+										<div align="right" style="padding:2px 5px 2px 2px;background-color:#c0c0c0;"><a href="#" onclick="ref_tickerinfo_close('strategy_a_ticker_info_pn','strategy_a_ticker_info_pnbdy')"><img border="0" src="images/button_close.gif"></a></div>
+										<div style="padding:5px;background:#ffffff;border:1px solid gray;">							
+											<div id="strategy_a_ticker_info_pnbdy"> </div>							
+									    </div>
+									</div>
+								</td>
+							</tr>
+                        </table>
+                    </td>
+                    <td valign="top">                        
+						
+						  <div style="border:1px solid grey; background-color:#c0c0c0; padding:2px 2px 5px 2px">
+                                <!--td colspan="2">Last <input id="lastnmonthsxl" size="4" type="text" value="120"> Months<div id="fieldTablesxl"></div></td-->
+                                
+                                    <strong>Date:</strong>
+                                    <select onchange1="st_a_onDateSelectxl(this)" id="st_a_datefilter" onchange="onDateOption(this)">
+                                        <option value=""> -----Date  Range------</option>
+                                        <optgroup label="Specifiy Range">
+                                            <option type="daterange" value="daterange">Date Range</option>
+                                            <option type="datefrom" value="datefrom">Date From</option>
+                                            <option type="number" value="ndays">Last n Days</option>
+                                            <option type="number" value="nweeks">Last n Weeks</option>
+                                            <option type="number" value="nmonths">Last n Months</option>
+                                            <option type="number" value="nyears">Last n Years</option>
+                                        </optgroup>
+                                        <optgroup label="Recent">
+                                            <option type="" value="last1Day">Last 1 day</option>
+                                            <option type="" value="last1Week">Last 1 Weeks</option>
+                                            <option type="" value="last10Week">Last 10 Weeks</option>
+                                            <option type="" value="last1Month" selected>Last 1 Month</option>
+                                            <option type="" value="last2Month">Last 2 Months</option>
+                                            <option type="" value="last3Month">Last 3 Months</option>
+                                            <option type="" value="last6Month">Last 6 Months</option>
+                                            <option type="" value="last12Month">Last 12 Months</option>
+                                            <option type="" value="last18Month">Last 18 Months</option>
+                                            <option type="" value="last24Month">Last 24 Months</option>
+                                            <option type="" value="last3Year">Last 3 Years</option>
+                                            <option type="" value="last4Year">Last 4 Years</option>
+                                            <option type="" value="last5Year">Last 5 Years</option>
+                                            <option type="" value="last10Year">Last 10 Years</option>
+                                        </optgroup>
+                                    </select>
+                                    <!--div style="margin-top:5px" id="st_a_dateInputArea">
+                                    </div-->
+									<div  style="display:inline;margin-top:5px" id="dateOptionArea"></div>	
+									<input type="hidden" id="st_a_contractsxl" value="" name="st_a_contractsxl">
+                                
+                            </div>
+						
+						<div id="st_a_fieldTree">
+                        </div>
+						
+                    </td>
+					<td >
+						<div id="st_a_fieldTablesxl">
+                        </div>
+						
+						
+					</td>
+                </tr>
+            </table>
+            <table class="widgetBox" id="st_a_foldableTable">
+                <tr>
+                    <td colspan="2" bgcolor="#AAAEAA">
+                        <span class="widgetTitle">Strategy Day Spreadsheet</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td vlign="top">
+                        <table width="100%">
+                            <tr>
+                                <td align="right">
+                                    <strong>Date:</strong>
+                                </td>
+                                <td>
+                                    <input id="st_a_date4dailysheet" size="10" value="" type="text">Latest Data<input id="st_a_date4dailylatest" onclick="dailydateswap(this)" size="10" value="1" type="checkbox">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <strong>Security:</strong>
+                                </td>
+                                <td>
+                                    <input id="st_a_security4dailysheet" value="" type="text">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td valign="top">
+                        <div align="right">
+                            Select All<input type="checkbox" value="st_a_dailyFieldSelect" onclick="checkAllItems(this)"><hr size='1'>
+                        </div>
+                        <div id="st_a_dailyFieldSelect">
+                        </div>
+                        <input type="button" onclick="generateDailyStrategy_a()" value="Get XL File">
+                    </td>
+                </tr>
+            </table>
+        </td><!--td valign="top">
+        <div style="background-color:#AAAEAA;padding:3px;width:400px" >
+        <span class="widgetTitle">Administration &nbsp;&nbsp;</span> <input type="button" value=">>>>" onclick="toggleAdminPanel(this,'st_a_adminpanel')">
+        </div>
+        <div id="st_a_adminpanel" style="width:400px;display:none;border:2px solid #AAAEAA;padding:10px">
+        <strong>Commodity:</strong>
+        <select id="st_a_adminTable" onchange="st_a_onSelectAdminTable(this)">
+        <option value="">---Select Commodity--</option>
+        </select>
+        <div id="st_a_adminpanelftables"></div>
+        </div>
+        </td-->
+    </tr>
+</table>

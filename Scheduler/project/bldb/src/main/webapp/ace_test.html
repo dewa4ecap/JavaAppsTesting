@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+
+	<script src="ace/src/ace.js" data-ace-base="ace" charset="utf-8"></script>	
+	<script src="ace/src/mode-r.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ace/src/theme-xcode.js" type="text/javascript" charset="utf-8"></script>
+
+	<script>
+	window.onload = function() {
+		window.editorContext = {
+			editor: ace.edit('editor'),
+			sessions: []
+		};
+
+		var editor = editorContext.editor;
+		var session = editor.getSession();
+
+		editor.setTheme('ace/theme/twilight');
+
+		var JavaScriptMode = require("ace/mode/javascript").Mode;
+		editorContext.sessions.push(session);
+		session.setMode(new JavaScriptMode());
+
+		var EditSession = require('ace/edit_session').EditSession;
+		session = new EditSession('');
+		editorContext.sessions.push(session);
+		session.setMode(new JavaScriptMode());
+
+		var CssMode = require("ace/mode/css").Mode;
+		session = new EditSession('');
+		editorContext.sessions.push(session);
+		session.setMode(new CssMode());
+	};
+	</script>
+</head>
+<body>
+	<button type="button" onclick="editorContext.editor.setSession(editorContext.sessions[0]); return false;">Document #1 (JS)</button>
+	<button type="button" onclick="editorContext.editor.setSession(editorContext.sessions[1]); return false;">Document #2 (JavaScript)</button>
+	<button type="button" onclick="editorContext.editor.setSession(editorContext.sessions[2]); return false;">Document #3 (CSS)</button>
+
+	<div id="editor" style="width: 500px; height: 500px;">Some text</div>
+</body>
+</html>

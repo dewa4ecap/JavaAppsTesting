@@ -1,0 +1,30 @@
+
+
+<html>
+<head>
+  <title>Login API Test</title>
+	 
+	<script language="JavaScript" type="text/javascript" src="http://4ecapsvsg2:8080/bldb/schedulerAPI?method=check_auth&redirect=http://localhost:9090/bldb/login_test.html"></script>
+	 
+	<script language="JavaScript" type="text/javascript" src="http://4ecapsvsg2:8080/bldb/jquery-1.8.2/js/jquery-1.7.1.min.js"></script>
+	<script language="JavaScript">
+	  
+	  $(function(){
+	     if(loggedin_user!=null){
+	     	$("#loggedUser").html(loggedin_user.username);
+	     }  
+	  });
+	  
+	  
+	</script>
+
+	
+</head>
+<body>
+
+
+Logged user: <span id="loggedUser"></span>
+
+<a href="http://4ecapsvsg2:8080/bldb/login.jsp?action=logout">Logout</a>
+</body>
+</html>

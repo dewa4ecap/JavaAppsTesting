@@ -1,0 +1,24 @@
+
+
+.outputlist .time {
+       
+}
+
+.outputlist .sc_id {
+    color:#379CFA;   
+}
+
+.outputlist .hclass{
+    color: #FF7A00;
+}
+
+.outputlist .p{
+    color:#FF00E0;
+}
+
+.outputlist .in{
+    color:#C26411;
+}
+.outputlist .out{
+    color:#0C9739;
+}

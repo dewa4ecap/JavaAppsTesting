@@ -1,0 +1,248 @@
+<table width="100%">
+ <tr>
+ 	<td width="300px">
+		 	<table border="0">		 		
+				
+				<tr>
+	   	 			<td valign="top">
+							<table class="widgetBox">
+									<tr>
+										<td colspan="2" bgcolor="#AAAEAA"><span class="widgetTitle">Date Filter</span></td>
+									</tr>
+									
+								<tr>
+								 
+								<td  align="right"><strong>Date:</strong></td>
+								<td>
+									<select onchange="chart_onDateSelectxl(this)" id="chart_datefilter">
+										<option value="" selected>-----Date Range------</option>
+										<optgroup label="Specifiy Range">
+											<option type="daterange" value="daterange">Date Range</option>
+											<option type="datefrom" value="datefrom">Date From</option>
+											<option type="number"  value="ndays">Last n Days</option>
+											<option type="number"  value="nweeks">Last n Weeks</option>
+											<option type="number"  value="nmonths">Last n Months</option>
+											<option type="number"  value="nyears">Last n Years</option>
+										</optgroup>
+										<optgroup label="Recent">
+											<option type=""  value="cdate>=DATEADD(day,-1,current_timestamp)">Last 1 day</option>
+											<option type=""  value="cdate>=DATEADD(week,-1,current_timestamp)">Last 1 Weeks</option>
+											<option type=""  value="cdate>=DATEADD(week,-10,current_timestamp)">Last 10 Weeks</option>
+											<option type=""  value="cdate>=DATEADD(month,-1,current_timestamp)">Last 1 Month</option>
+											<option type=""  value="cdate>=DATEADD(month,-2,current_timestamp)">Last 2 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-3,current_timestamp)">Last 3 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-6,current_timestamp)">Last 6 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-12,current_timestamp)">Last 12 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-18,current_timestamp)">Last 18 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-24,current_timestamp)">Last 24 Months</option>
+											<option type=""  value="cdate>=DATEADD(year,-3,current_timestamp)">Last 3 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-4,current_timestamp)">Last 4 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-5,current_timestamp)">Last 5 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-10,current_timestamp)">Last 10 Years</option>
+										</optgroup>
+									</select>	
+									
+									<div style="margin-top:5px" id="chart_dateInputArea"></div>					
+							</tr>							
+								
+							</table>
+					</td> 
+		      </tr>
+
+				
+	   	 		<tr>
+	   	 			<td valign="top">
+							<table class="widgetBox">
+							<tr>
+								<td colspan="2" bgcolor="#AAAEAA"><span class="widgetTitle">Data 1</span></td>
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									 <strong>Source:</strong>
+								</td>
+								<td>
+									 
+									<select id="chart_source1" onchange="chart_onSourceSelect(this,'chart_fields1')">
+										<option value="">----Select Source---</option>
+										<option value="securities">Market Securities</option>
+										<option value="market">Market Contract</option>
+										<option value="strategy_contracts">Strategy Contracts</option>
+										<option value="strategy_allocation">Strategy Allocation</option>
+										<option value="strategy_indicators">Strategy Indicators</option>
+										<option value="fundamental">Fundamental</option>										
+								</select>										
+
+								</td>
+							</tr>
+							<!-- tr id="chart_source1cbox">
+								<td width="50%" align="right">
+									 <strong>Commodity:</strong>
+								</td>
+								<td>								 
+									<select id="chart_source1comm"></select>										
+								</td>
+							</tr -->
+
+							
+							<!--tr>
+								<td width="50%" align="right">
+									 <strong>Commodity:</strong><br><small style="width:150px">for multiple commodities <br>use either comma (,) or Enter. <br> Leave empty if you do not <br>want to specify</small>
+								</td>
+								<td>
+									 <textarea id="chart_commodities1" size="50" rows="6"></textarea>
+								</td>
+							</tr-->
+							
+							<tr id="chart_fields1search" style="display:none">				
+								
+								<td width="50%" align="right">
+									 
+								</td>
+								<td width="50%" >
+									<input id="chart_contracts1search" size="10" type="text" value=""><input type="button" value="Search" onclick="chart_searchSecurites('chart_contracts1search','chart_contracts1')"/> 
+								</td>	
+							</tr>
+							
+							
+							<tr>				
+								
+								<td width="50%" align="right">
+									<strong>Security:</strong><br><small style="width:150px">for multiple contracts <br>use either comma (,) or Enter. <br> Leave empty if you do not <br>want to specify</small>
+								</td>
+								<td width="50%" >
+									<textarea id="chart_contracts1" size="50" rows="6"></textarea>
+								</td>	
+							</tr>
+							<tr>
+								<td width="50%" align="right">
+									 <strong>Fields:</strong>
+								</td>
+								<td>
+									 
+									<select id="chart_fields1">	</select>										
+
+								</td>
+							</tr>
+						</table>	
+					</td>
+				</tr>
+								
+	   	 		<tr>
+	   	 			<td valign="top">
+							<table class="widgetBox">
+							<tr>
+								<td colspan="2" bgcolor="#AAAEAA"><span class="widgetTitle">Data 2</span></td>
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									 <strong>Source:</strong>
+								</td>
+								<td>
+									<select id="chart_source2" onchange="chart_onSourceSelect(this,'chart_fields2')">
+										<option value="">----Select Source---</option>
+										<option value="securities">Market Securities</option>
+										<option value="market">Market Contract</option>
+										<option value="strategy_contracts">Strategy Contracts</option>
+										<option value="strategy_allocation">Strategy Allocation</option>
+										<option value="strategy_indicators">Strategy Indicators</option>
+										<option value="fundamental">Fundamental</option>										
+									</select>
+								</td>
+							</tr>
+							<!--tr id="chart_source2cbox">
+								<td width="50%" align="right">
+									 <strong>Commodity:</strong>
+								</td>
+								<td>								 
+									<select id="chart_source2comm"></select>										
+								</td>
+							</tr-->
+			
+							<!--tr>
+								<td width="50%" align="right">
+									 <strong>Commodity:</strong><br><small style="width:150px">for multiple commodities <br>use either comma (,) or Enter. <br> Leave empty if you do not <br>want to specify</small>
+								</td>
+								<td>
+									 <textarea id="chart_commodities2" size="50" rows="6"></textarea>
+								</td>
+							</tr-->
+							<tr id="chart_fields2search" style="display:none">				
+								
+								<td width="50%" align="right">
+									 
+								</td>
+								<td width="50%" >
+									<input id="chart_contracts2search" size="10" type="text" value=""><input type="button" value="Search" onclick="chart_searchSecurites('chart_contracts2search','chart_contracts2')"/> 
+								</td>	
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									<strong>Security:</strong><br><small style="width:150px">for multiple contracts <br>use either comma (,) or Enter. <br> Leave empty if you do not <br>want to specify</small>
+								</td>
+								<td width="50%" >
+									<textarea id="chart_contracts2" size="50" rows="6"></textarea>
+								</td>	
+							</tr>
+							</tr>
+
+							
+							<tr>
+								<td width="50%" align="right">
+									 <strong>Fields:</strong>
+								</td>
+								<td>								 
+									<select id="chart_fields2"></select>										
+								</td>
+							</tr>
+
+						</table>	
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<table >
+						 
+							<tr>
+								<td><small><input type="radio" value="screen" name="chart_output2" checked>Output to Screen</small></td>
+								<td><small><input type="radio" value="jpg" id="chart_outputid" name="chart_output2">Open/Save as JPG</small></td>
+							</tr>
+							
+						</table>
+					</td>
+					
+				</tr>
+				
+				<tr>
+					<td>
+						<input type="checkbox" value="true" id="saveChartCkbox" onclick="onSaveChartBx(this)">Save Chart
+						<span style="display:none" id="saveChartCkboxNm">,&nbsp;&nbsp; Name:<input type="text" value="" id="saveChartname"></span>
+						<input type="button" value="Get Chart" onclick="getChart()"/>
+					</td>
+					
+				</tr>
+				
+				<tr>
+		 			<td><div style="border:1px solid gray;padding:5px;margin-bottom:20px">
+		 				<strong>Saved Charts</strong>
+						<hr size='1'>
+						<div id="savedChartList"></div>
+						
+		 			</div></td>
+				</tr>		
+				</table>
+		</td>
+		<td width="*">
+			<img src="" id="chartImg" style="display:none">
+			
+		</td>
+	</tr>
+</table>
+<form id="downloadchart" style="margin:0px" action="download.jsp" method="POST">
+	<input id="chartid" name="chartid" type="hidden" value="">
+	<input id="jpgattachment" name="jpgattachment" type="hidden" value="true">
+	
+</form> 			

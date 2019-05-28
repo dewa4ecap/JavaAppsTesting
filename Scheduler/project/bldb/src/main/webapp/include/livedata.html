@@ -1,0 +1,125 @@
+	   	 	<table border="0">
+	   	 		<tr>
+	   	 			 
+					<td valign="top">
+							<table class="widgetBox">
+							<tr>
+								<td colspan="2" bgcolor="#AAAEAA"><span class="widgetTitle">Get Live Data from Bloomberg</span></td>
+							</tr>
+							
+							<tr>
+								<!--td colspan="2">Last <input id="lastnmonthsxl" size="4" type="text" value="120"> Months<div id="fieldTablesxl"></div></td-->
+								<td  align="right"><strong>Date:</strong></td>
+								<td>
+									<select onchange="ld_onDateSelectxl(this)" id="st_datefilter">
+										<option value="" selected>-----Date Range------</option>
+										<optgroup label="Specifiy Range">
+											<option type="daterange" value="daterange">Date Range</option>
+											<option type="number"  value="ndays">Last n Days</option>
+											<option type="number"  value="nweeks">Last n Weeks</option>
+											<option type="number"  value="nmonths">Last n Months</option>
+											<option type="number"  value="nyears">Last n Years</option>
+										</optgroup>
+										<optgroup label="Recent">
+											<option type=""  value="ndays,1">Last 1 day</option>
+											<option type=""  value="nweeks,1">Last 1 Weeks</option>
+											<option type=""  value="nweeks,10">Last 10 Weeks</option>
+											<option type=""  value="nmonths,1">Last 1 Month</option>
+											<option type=""  value="nmonths,2">Last 2 Months</option>
+											<option type=""  value="nmonths,3">Last 3 Months</option>
+											<option type=""  value="nmonths,6">Last 6 Months</option>
+											<option type=""  value="nmonths,12">Last 12 Months</option>
+											<option type=""  value="nmonths,18">Last 18 Months</option>
+											<option type=""  value="nmonths,24">Last 24 Months</option>
+											<option type=""  value="nyears,3">Last 3 Years</option>
+											<option type=""  value="nyears,4">Last 4 Years</option>
+											<option type=""  value="nyears,5">Last 5 Years</option>
+											<option type=""  value="nyears,10">Last 10 Years</option>
+										</optgroup>
+									</select>
+									
+								
+								 <div style="margin-top:5px" id="ld_dateInputArea"></div></td>
+							</tr>
+			
+							<tr>
+								<td width="50%" align="right">
+									<strong>Output Type:</strong>
+								</td>
+								<td width="50%" >
+									<input type="radio" name="outputopt" onclick="swapTxtBox(this)" checked="true" value="0"><small>Date X Securities</small><br>
+									<input type="radio" name="outputopt" onclick="swapTxtBox(this)" value="1"><small>Date X Fields</small>
+								</td>	
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									<strong><span id="ld_textArea">Security Identifiers:</span></strong><br><small style="width:150px">for multiple contracts use either comma (,) or Enter.  Leave empty if you do not want to specify</small>
+								</td>
+								<td width="50%" >
+									<textarea id="ld_contractsxl" size="50" rows="6"></textarea>
+								</td>	
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									<strong><span id="ld_fieldArea">Field Name:</span></strong>
+								</td>
+								<td width="50%" >
+									<input id="ld_fieldname" type="text"	size="20"/>
+								</td>	
+							</tr>
+
+							<tr>
+								<td width="50%" align="right">
+									<strong>Identifier Suffix:</strong>
+								</td>
+								<td width="50%" >
+									<input id="ld_marketsector" type="text"	size="20"/>
+								</td>	
+							</tr>
+ 						
+
+ 							<tr>
+ 								<td width="50%" align="right"></td>
+								<td width="50%" align="left">
+									<select id="sec_id_suffix" onclick="ld_suffixValidate(this)">
+										<option value=""></option>
+										<option value="Comdty">Comdty</option>
+										<option value="Index">Index</option>
+										<option value="Curncy">Curncy</option>
+										<option value="Equity">Equity</option>
+										<option value="Govt">Govt</option>
+										<option value="Corp">Corp</option>
+										<option value="Mtge">Mtge</option>
+										<option value="M-Mkt">M-Mkt</option>
+										<option value="Muni">Muni</option>
+										<option value="Pfd">Pfd</option>								
+									</select>
+								</td> 
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									<strong>Output To:</strong>
+								</td>
+								<td width="50%" >
+									<input type="radio" name="ld_outputto" onclick="swapOutputTo(this)" checked="true" value="0"><small>Screen</small>
+									<input type="radio" name="ld_outputto" onclick="swapOutputTo(this)" value="1"><small>XL File</small>
+								</td>	
+							</tr>					
+						
+							<tr>
+								<td width="50%" colspan="2" align="right">
+									<input type="button" value="Get" onclick="ld_getInputRangesxl()"/>
+								</td>
+								 
+							</tr>	 
+							 
+						</table>	
+					</td>
+					<td valign="top">
+						<div id="liveoutput" style="overflow:scroll;height:700px"></div>
+					</td>
+		      </tr>
+			</table>

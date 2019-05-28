@@ -1,0 +1,140 @@
+<table width="100%" cellpadding="4" cellspacing="0">
+	<tr>
+		<td bgcolor="#aaaeaa"><span class="widgetTitle">Contracts</span></td>
+		<td bgcolor="#aaaeaa"><span class="widgetTitle">Securities,Strategies and Fundamental</span></td>
+	</tr>
+    <tr>
+        <td width='50%' valign="top" style="border:2px solid #aaaeaa">
+            <div>
+            	<div style="display:none">
+	                <input type="button" id="ref_syncCotractsBtn" value="Synchronize" onclick="bb_ContractsSychronize();">
+					<select id="ref_syncCotractsBtn1" name="ref_syncCotractsBtn1" multiple>
+						<option value="SyncAll" onclick="alert('clicked all')">Synchronize All</option>
+					</select>
+					<input type="button" value="Mapping" id="ref_conFieldMappingBtn" onclick="ref_modifyFields();">				
+					<input type="button" value="Import Market Contracts" id="ref_importContracts" onclick="bb_syncMarketContractsWithRef();">
+				</div>
+                <div style="display:none" id="ref_fieldMappingPane">
+                    <div class="hd">
+                        Field Mapping
+                    </div>
+                    <div class="bd">
+                        <table id="ref_fieldMappingDiv">
+                            <tr>
+                                <td>
+                                    <b>Friendly Fieldname:</b>
+                                </td>
+                                <td>
+                                    <b>Bloomberg Fieldname</b>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr id="ref_fieldAddRow">
+                                <td>
+                                    <input type="text" value="" id="ref_fieldAdd1">
+                                </td>
+                                <td>
+                                    <input type="text" value="" id="ref_fieldAdd2">
+                                </td>
+                                <td>
+                                    <input type="button" value="Add" onclick="ref_addFieldMap();">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div> <!--div>
+            <input type="text" id="searchContrat" value=""> <input type="button" value="Contract Info" onclick="bb_getContractData()">
+            </div-->
+            <table border="0" width="100%">
+                <tr>
+                    <td width="25%" valign="top">
+                        <div id="ref_tree" style="height:500px;overflow:scroll">
+                        </div>
+                    </td>
+                    <td width="75%" valign="top">
+                    	<div id="ref_commFlexiFields"></div>                      
+                        <div id="ref_contractInfo"> </div>
+                         
+                        <div style="display:none" id="ref_BBSyncInfoPane">
+                           
+                        </div>
+
+						
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width='50%' valign="top" style="border:2px solid #aaaeaa">
+ 
+			<div>
+				<div style="border:1px solid gray; background-color:#c0c0c0;padding:5px;valing:middle; display:none">
+					Sychronize Security Tickers with Bloomberg 
+	                <input type="button" id="ref_syncSecuritiesBtn" value="Synchronize" onclick="bb_ContractsSychronize();">
+					<select id="ref_syncSecuritiesBtn1" name="ref_syncSecuritiesBtn1" multiple>
+						<option value="SyncAll" onclick="alert('clicked all')">Synchronize All</option>
+					</select>
+					<input type="button" value="Mapping" id="ref_secFieldMappingBtn" onclick="ref_modifySecFields();">
+				</div>
+				
+                <div style="display:none" id="ref_fieldSecMappingPane">
+                    <div class="hd">
+                        Field Mapping
+                    </div>
+                    <div class="bd">
+                        <table id="ref_fieldSecMappingDiv">
+                            <tr>
+                                <td>
+                                    <b>Friendly Fieldname:</b>
+                                </td>
+                                <td>
+                                    <b>Bloomberg Fieldname</b>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr id="ref_fieldSecAddRow">
+                                <td>
+                                    <input type="text" value="" id="ref_fieldSecAdd1">
+                                </td>
+                                <td>
+                                    <input type="text" value="" id="ref_fieldSecAdd2">
+                                </td>
+                                <td>
+                                    <input type="button" value="Add" onclick="ref_addSecFieldMap();">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div> <!--div>
+            <input type="text" id="searchContrat" value=""> <input type="button" value="Contract Info" onclick="bb_getContractData()">
+            </div-->
+			<table width="100%">
+				<tr>
+					<td width="32%" valign="top"><div id="ref_tree2" style="height:500px;overflow:scroll">  </div></td>
+					<td width="68%" valign="top">
+						 <div id="ref_otherFlexiFields"></div>
+						 <div id="ref_securityInfo"></div>
+						 <div style="display:none" id="ref_SecurityBBSyncInfoPane">
+	                             
+	                     </div>	
+					</td>
+				</tr>
+ 
+			</table>
+
+
+        </td>
+    </tr>
+</table>
+
+ 
+ <script language="JavaScript">
+    
+    //refLoadFirst();
+</script>

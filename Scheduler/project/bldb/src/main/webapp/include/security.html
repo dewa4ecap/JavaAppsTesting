@@ -1,0 +1,211 @@
+	      	<table>
+	      		<tr>
+	      			<td valign="top">
+	      				
+						<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Synchronize Bloomberg</span></td>
+							</tr>							
+							<tr>								
+								<td>
+									<hr size='1'>									
+									Last <input type="text" name="sec_lastndays" id="sec_lastndays" size="3" value="1"/> days
+									<input id="sec_importBtn" onclick="sec_synchronizeBloomberg()" type="button" value="Sync Bloomberg">
+								</td>
+							</tr>
+							
+							<tr>								
+								<td>
+									<small>This option Synchronizes only the xml files in the following mapping  file</span></small><br>
+									<small>Last Synchronized on <span id="sec_lastSyncOn"></span></small>														
+								</td>
+							</tr>
+							<tr>								
+								<td>
+									<Strong>Sync Mapping File:</strong><br><span id="sec_syncMappingLocation"></span>					
+								</td>
+							</tr>
+
+
+							<hr size='1'>
+							<tr>								
+								<td>
+									<hr size='1'>				
+									<Strong>Sync XML file:</strong><br>					
+									Last <input type="text" name="sec_lastndaysxml" id="sec_lastndaysxml" size="3" value="1"/> days<br>
+									XML File:<br><small><span id="sec_syncMappingLocationxml"></span>\</small><input type="text" name="sec_xmlfilename" id="sec_xmlfilename" size="14" value=""/><br>
+									<small>Example: latestprice.xml</small><br>									
+									<input id="sec_importBtn" onclick="sec_synchronizeBloombergXML()" type="button" value="Sync Bloomberg">
+									
+								</td>
+							</tr>
+
+							
+						</table>
+						
+												
+						<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Current Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> The file name of the source spreadsheet will be created as commodity name</small-->
+									<a href="#" onclick="downloadTemplate('security_current')">Sample Template</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div id="sec_currentfolder"></div>
+									<div id="sec_current"></div>
+									<input id="sec_importBtn" onclick="sec_importCurrent()" type="button" value="Import">
+								</td>
+							</tr>							
+						</table>
+						
+	      				<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Historical Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> Sheet name should be consitent with commodity name and each sheet should have only one commodity data</small-->
+									<a href="#" onclick="downloadTemplate('security_historical')">Sample Template</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div id="sec_historicalfolder"></div>
+									<div id="sec_historical"></div>
+									<input id="sec_ignoreDupMarket" type="checkbox"/> Ignore Duplicate Checking <br><small>(faster and recommended only at first time of importing)</small>
+									<br>
+									<input id="sec_importBtn" onclick="sec_importHistory()" type="button" value="Import">
+								</td>
+							</tr>
+
+						</table>
+
+	      				
+						<br>
+
+						
+	      			</td>
+					<td valign="top">
+	 					
+						<table class="widgetBox">
+							<tr>
+								<td colspan="2" bgcolor="#AAAEAA"><span class="widgetTitle">Spreadsheet Generation</span></td>
+							</tr>
+							
+							<tr>
+								<!--td colspan="2">Last <input id="lastnmonthsxl" size="4" type="text" value="120"> Months<div id="fieldTablesxl"></div></td-->
+								<td  align="right"><strong>Date:</strong></td>
+								<td>
+									<select onchange="sec_onDateSelectxl(this)" id="sec_datefilter">
+										<option value="" selected>-----Date Range------</option>
+										<optgroup label="Specifiy Range">
+											<option type="daterange" value="daterange">Date Range</option>
+											<option type="datefrom" value="datefrom">Date From</option>
+											<option type="number"  value="ndays">Last n Days</option>
+											<option type="number"  value="nweeks">Last n Weeks</option>
+											<option type="number"  value="nmonths">Last n Months</option>
+											<option type="number"  value="nyears">Last n Years</option>
+										</optgroup>
+										<optgroup label="Recent">
+											<option type=""  value="cdate>=DATEADD(day,-1,current_timestamp)">Last 1 day</option>
+											<option type=""  value="cdate>=DATEADD(week,-1,current_timestamp)">Last 1 Weeks</option>
+											<option type=""  value="cdate>=DATEADD(week,-10,current_timestamp)">Last 10 Weeks</option>
+											<option type=""  value="cdate>=DATEADD(month,-1,current_timestamp)">Last 1 Month</option>
+											<option type=""  value="cdate>=DATEADD(month,-2,current_timestamp)">Last 2 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-3,current_timestamp)">Last 3 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-6,current_timestamp)">Last 6 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-12,current_timestamp)">Last 12 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-18,current_timestamp)">Last 18 Months</option>
+											<option type=""  value="cdate>=DATEADD(month,-24,current_timestamp)">Last 24 Months</option>
+											<option type=""  value="cdate>=DATEADD(year,-3,current_timestamp)">Last 3 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-4,current_timestamp)">Last 4 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-5,current_timestamp)">Last 5 Years</option>
+											<option type=""  value="cdate>=DATEADD(year,-10,current_timestamp)">Last 10 Years</option>
+										</optgroup>
+									</select>
+								 <div style="margin-top:5px" id="sec_dateInputArea"></div></td>
+							</tr>
+							
+							<tr>
+								<td width="50%" align="right">
+									<strong>Security:</strong><br><small style="width:150px">for multiple contracts use either comma (,) or Enter.  Leave empty if you do not want to specify</small>
+								</td>
+								<td width="50%" >
+									<textarea id="sec_contractsxl" size="50" rows="6"></textarea>
+								</td>	
+							</tr>
+							
+		 
+							
+							<tr>
+								<td colspan="2" align="left">
+									 <strong>Commodities & Fields:</strong><br>									 
+								</td>	 
+							</tr>
+							<tr>
+								<td colspan="2" align="left">
+							
+									<table class="widgetCommodity" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="2"></td>
+											<td colspan="2">Selected Commodities</td>
+										</tr>
+										<tr>
+										<td valign="top">
+											 
+											  <ul id="sec_market_comm_source" class="draglist">
+									   
+									  		  </ul>
+										</td>
+										<td valign="middle" align="center" style="width:30px">
+											<small>Drag & drop item</small><br>
+											<input type="button" value=">>" onclick="sec_mktCommDND.selectAll();"><br>
+											<input type="button" value="<<" onclick="sec_mktCommDND.deSelectAll();">
+										</td>
+										<td valign="top">
+											
+									  		<ul id="sec_market_comm_target" class="draglist">
+									  			
+									  		</ul>
+													
+										</td>
+										<td valign="top" style="width:150px;padding-left:2px" >											 
+											<textarea id="sec_market_comm_target1" cols="15" rows="5"></textarea>
+											<small>Also you can specify. Use either comma or Enter for multiple items</small>													
+										</td>
+
+									
+									
+										</tr>
+									</table>
+
+								</td>
+							</tr>
+
+
+							
+							<tr>
+								<td colspan="2"> <div id="sec_fieldTablesxl"></div></td>
+							</tr>
+						</table>	
+					</td>	
+					<td valign="top">
+						<div style="background-color:#AAAEAA;padding:3px;width:400px" >
+						  <span class="widgetTitle">Administration &nbsp;&nbsp;</span> <input type="button" value=">>>>" onclick="toggleAdminPanel(this,'sec_adminpanel')">
+						</div>
+						<div id="sec_adminpanel" style="width:400px;display:none;border:2px solid #AAAEAA;padding:10px">
+							 <strong>Commodity:</strong>							 
+							 <select id="sec_adminTable" onchange="sec_onSelectAdminTable(this)">
+							 	<option value="">---Select Commodity--</option>
+							 </select>
+							 <div id="sec_adminpanelftables"></div>
+						</div>
+					</td>				
+	      		</tr>
+	      	</table>	

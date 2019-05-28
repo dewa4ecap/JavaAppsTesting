@@ -1,0 +1,84 @@
+	      				
+						<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Synchronize Bloomberg</span></td>
+							</tr>							
+							<tr>								
+								<td>
+									<hr size='1'>									
+									Last <input type="text" name="sec_lastndays" id="sec_lastndays" size="3" value="1"/> days
+									<input id="sec_importBtn" onclick="sec_synchronizeBloomberg()" type="button" value="Sync Bloomberg">
+								</td>
+							</tr>
+							
+							<tr>								
+								<td>
+									<small>This option Synchronizes only the xml files in the following mapping  file</span></small><br>
+									<small>Last Synchronized on <span id="sec_lastSyncOn"></span></small>														
+								</td>
+							</tr>
+							<tr>								
+								<td>
+									<Strong>Sync Mapping File:</strong><br><span id="sec_syncMappingLocation"></span>					
+								</td>
+							</tr>
+
+
+							<hr size='1'>
+							<tr>								
+								<td>
+									<hr size='1'>				
+									<Strong>Sync XML file:</strong><br>					
+									Last <input type="text" name="sec_lastndaysxml" id="sec_lastndaysxml" size="3" value="1"/> days<br>
+									XML File:<br><small><span id="sec_syncMappingLocationxml"></span>\</small><input type="text" name="sec_xmlfilename" id="sec_xmlfilename" size="14" value=""/><br>
+									<small>Example: latestprice.xml</small><br>									
+									<input id="sec_importBtn" onclick="sec_synchronizeBloombergXML()" type="button" value="Sync Bloomberg">
+									
+								</td>
+							</tr>
+
+							
+						</table>
+						
+												
+						<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Current Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> The file name of the source spreadsheet will be created as commodity name</small-->
+									<a href="#" onclick="downloadTemplate('market_current')">Sample Template</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div id="sec_currentfolder"></div>
+									<div id="sec_current"></div>
+									<input id="sec_importBtn" onclick="sec_importCurrent()" type="button" value="Import">
+								</td>
+							</tr>							
+						</table>
+						
+	      				<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Historical Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> Sheet name should be consitent with commodity name and each sheet should have only one commodity data</small-->
+									<a href="#" onclick="downloadTemplate('market_historical')">Sample Template</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div id="sec_historicalfolder"></div>
+									<div id="sec_historical"></div>
+									<input id="sec_ignoreDupMarket" type="checkbox"/> Ignore Duplicate Checking <br><small>(faster and recommended only at first time of importing)</small>
+									<br>
+									<input id="sec_importBtn" onclick="sec_importHistory()" type="button" value="Import">
+								</td>
+							</tr>
+
+						</table>

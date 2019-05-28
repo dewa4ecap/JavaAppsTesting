@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jxta:PGA>
+<jxta:PGA xmlns:jxta="http://jxta.org">
+        <GID>
+                urn:jxta:uuid-2810413B3CC24DB483F4BAE601CF875002
+        </GID>
+        <MSID>
+                urn:jxta:uuid-29974C1D718F4E79A3A5E196818448850426E2ACBCB04EF6BF8F83B2A2C2E5CC06
+        </MSID>
+        <Name>
+                Tomcat Bridge Group
+        </Name>
+        <Desc>
+                Prototype app for demonstrating Tomcat Bridge Group
+        </Desc>
+</jxta:PGA>

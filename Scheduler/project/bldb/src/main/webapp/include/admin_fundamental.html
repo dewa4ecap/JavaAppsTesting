@@ -1,0 +1,42 @@
+ <table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Current Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> The file name of the source spreadsheet will be created as commodity name</small-->
+									<a href="#" onclick="downloadTemplate('fundamental_current')">Sample Template</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div id="fu_currentfolder"></div>
+									<div id="fu_current"></div>
+									<input id="importBtn" onclick="fu_importCurrent()" type="button" value="Import">
+								</td>
+							</tr>					
+						</table>
+						
+	      				<table class="widgetBox">
+							<tr>
+								<td bgcolor="#AAAEAA"><span class="widgetTitle">Import Historical Data</span></td>
+							</tr>
+							<tr>
+								<td>
+									<!--small style="width:250px"><b>Important:</b> First Row of the sheet should have commodity name should be consitent with commodity name and each sheet should have only one commodity data</small-->
+									<a href="#" onclick="downloadTemplate('fundamental_historical')">Sample Template</a>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div id="fu_historicalfolder"></div>
+									<div id="fu_historical"></div>
+									<input id="ignoreDupStrategy" type="checkbox"/> Ignore Duplicate Checking <br><small>(faster and recommended only at first time of importing)</small>
+									<br>
+
+									<input id="importBtn" onclick="fu_importHistory()" type="button" value="Import">
+								</td>
+							</tr>
+
+						</table>

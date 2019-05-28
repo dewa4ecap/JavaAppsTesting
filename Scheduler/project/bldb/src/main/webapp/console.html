@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Scheduler Console</title>
+
+
+<link rel="stylesheet" type="text/css" href="jquery-1.8.2/css/cupertino/jquery-ui-1.8.2.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/console_colorcodes.css" />
+<script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-1.4.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-ui-1.8.2.custom.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/console.js"></script>
+
+ 
+<style> 
+ .tablewrap{ 	
+ 	/*border:2px solid grey;*/
+ 	padding:2px; 
+ 	margin:10px;
+ 	display:table;
+ 	width:92%;
+ 	height:95%;
+ }
+ .tablewrap .tablerow {
+ 	display:table-row;
+ }
+  .tablewrap .tablecell {
+  	display: table-cell;
+  	width:100%;
+  }
+  
+  .tablewrap .tablecell.command{  	
+  	background:#000000;
+  	color:#FFFFFF;   
+  	border-bottom:2px solid #A2BCC0;  	
+  	
+  }
+  .tablewrap .tablecell.console{
+   	background:#000000;
+  	color:#FFFFFF; 
+  	 	  	
+  }
+  
+  .commandlist,.outputlist {
+  	list-style-type: none;
+  	padding-left:0px;
+	font-family: sans-serif; 
+	padding:5px;
+	overflow: auto;	 
+	margin:0px;	
+	width:1600px;
+  }
+  
+.commandlist::-webkit-scrollbar,.outputlist::-webkit-scrollbar {width: 10px; height: 10px; }
+.commandlist::-webkit-scrollbar-thumb,.outputlist::-webkit-scrollbar-thumb {background-color: #8F9753; border-radius:1px; }
+
+  
+  .outputlist {
+  	height:700px;
+  	font-size:0.8em;
+  	font-family: courier;  	  
+  }
+  .outputlist li {width:2500px;}
+  .commandlist {
+  	height:230px;
+  }
+  .commandlist li {
+  	
+  }
+  .commandlist .commandinput {
+  	  	
+  }
+  .commandlist .commandinput input{
+   	width:95%;
+   	background:#000000;
+   	color:#F5F5F5;
+   	border:none;
+   	font-size: 1em; 
+   	margin:0px;
+  }
+  .commandlist .commandinput input:focus{
+  	outline:none;
+  	
+  }
+  
+.commandlist .commanddone {
+	color: #FF9E9E;
+}
+.commandlist .commanddone.result {  	
+  	 padding-left:5px;
+  	 font-size:.9em;
+  	 white-space:pre;
+  	 font-family: courier;
+  	 color: #FFF;
+  }
+  
+  
+  
+  .power {float:right; }
+  .power input{ width:30px; height:30px;border-radius: 15px;}
+  .power input.poweron {	background:#0C9739;}
+  .power input.poweroff {	background:#F2617C;}
+  
+  
+  .ui-menu {
+  	font-size:0.8em;
+  }
+  
+  .ui-widget-content {
+  	background:#000;
+  	color:white;
+  	border: 1px solid #DDD;
+  	border-radius:0px;
+  	
+  }
+  .ui-widget-content a {
+	color: white;
+   }
+  
+ </style>
+ 
+</head>
+<body>
+<div class="power"><input type="button" onclick="connectWS()" value=""></div>
+<div class="tablewrap">
+	<div class="tablerow">	
+		<div class="tablecell command">
+			 <ul class="commandlist">
+			 	<li class='commandinput'>~ <input type="text"></li>
+			 </ul>
+		</div>			
+	</div>
+	
+	<div class="tablerow">
+		<div class="tablecell console">
+		  <ul class="outputlist">
+		  </ul> 	
+		</div>
+	</div>	
+
+</div>
+
+ 
+</body>
+</html>

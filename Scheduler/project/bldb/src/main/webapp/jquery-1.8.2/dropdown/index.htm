@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+		<link rel="stylesheet" type="text/css" href="dropdown.css" />
+		<script src='dropdown.js'></script>
+		<style>
+		* { font-family: "Trebuchet MS"; }
+		</style>
+	</head>
+	<body>
+		<h1>Dropdown demo</h1>
+		<br />
+		<h3>Demo 1 - as form field</h3>
+		<script>
+		new Dropdown({
+			mode: 'form',
+			data: [{text: 'Select...'}, {val: 139, text: 'dog'}, {val: 251, text: 'cat'}, {val: 3592, text: 'platipus'}],
+			fieldName: 'animal'
+		});
+		</script>
+		<br />
+		<p><a href="javascript:alert($('[name=animal]').val());">Click here</a> to get the value of the currently selected option that would be sent to the server on form submit (the value sent is either the option's @value or, if none is set, its @text)</p>
+		<br />
+		<h3>Demo 2 - navigation (with optional images)</h3>
+		<script>
+		new Dropdown({
+			mode: 'nav',
+			data: [{text: 'Select a site...'}, {url: 'http://www.google.com', img: 'http://sightingufo.com/wp-content/plugins/wp-social-bookmarking/images/google.png', click: function() { alert('No - not going to Google right now, I refuse!'); return false; }, text: 'Google'}, {url: 'http://www.yahoo.co.uk', img: 'http://www.glassandglazingsolutions.co.uk/images/icons/yahoo.gif', text: 'Yahoo!'}, {url: 'http://www.mitya.co.uk', img: 'http://www.mitya.co.uk/imgs/scriptDemos/dropdown/mitya.png', text: "Mitya's website"}],
+		});
+		</script>
+	</body>
+</html>

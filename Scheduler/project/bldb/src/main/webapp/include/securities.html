@@ -1,0 +1,145 @@
+<table width="auto">
+    <tr>
+ 
+        <td valign="top">
+            <table class="widgetBox">
+                <tr>
+                    <td colspan="2" bgcolor="#AAAEAA">
+                        <span class="widgetTitle">Spreadsheet Generation</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" width="auto">
+                        <table width="100%">
+                            <tr>
+                                <!--td colspan="2">Last <input id="lastnmonthsxl" size="4" type="text" value="120"> Months<div id="fieldTablesxl"></div></td-->
+                                <td colspan="2" align="left">
+                                    <strong>Date:</strong>
+                                    <select onchange="sec_onDateSelectxl(this)" id="sec_datefilter">
+                                        <option value="" selected> -----Date  Range------</option>
+                                        <optgroup label="Specifiy Range">
+                                            <option type="daterange" value="daterange">Date Range</option>
+                                            <option type="datefrom" value="datefrom">Date From</option>
+                                            <option type="number" value="ndays">Last n Days</option>
+                                            <option type="number" value="nweeks">Last n Weeks</option>
+                                            <option type="number" value="nmonths">Last n Months</option>
+                                            <option type="number" value="nyears">Last n Years</option>
+                                        </optgroup>
+                                        <optgroup label="Recent">
+                                            <option type="" value="last1Day">Last 1 day</option>
+                                            <option type="" value="last1Week">Last 1 Weeks</option>
+                                            <option type="" value="last10Week">Last 10 Weeks</option>
+                                            <option type="" value="last1Month">Last 1 Month</option>
+                                            <option type="" value="last2Month">Last 2 Months</option>
+                                            <option type="" value="last3Month">Last 3 Months</option>
+                                            <option type="" value="last6Month">Last 6 Months</option>
+                                            <option type="" value="last12Month">Last 12 Months</option>
+                                            <option type="" value="last18Month">Last 18 Months</option>
+                                            <option type="" value="last24Month">Last 24 Months</option>
+                                            <option type="" value="last3Year">Last 3 Years</option>
+                                            <option type="" value="last4Year">Last 4 Years</option>
+                                            <option type="" value="last5Year">Last 5 Years</option>
+                                            <option type="" value="last10Year">Last 10 Years</option>
+                                        </optgroup>
+                                    </select>
+                                    <div style="margin-top:5px" id="sec_dateInputArea">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="display:none;margin:0px">
+                                <td width="50%" align="right">
+                                    <strong>Security:</strong>
+                                    <br>
+                                    <small style="width:150px">
+                                        for multiple contracts use either comma (,) or Enter.  Leave empty if you do not want to specify
+                                    </small>
+                                </td>
+                                <td width="50%">
+                                    <textarea id="sec_contractsxl" size="50" rows="6">
+                                    </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="left">
+                                    <table class="widgetCommodity" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Security:</strong><div id="sec_navi_link" style="float:inline"></div>
+                                            </td>
+                                            <td colspan="2">
+                                                 
+											<form onsubmit="return sec_searchSecurity()" style="margin:0px">	<input type="text" value="" id="sec_searchSecrity"/><input type="submit" value="Search" onclick="return sec_searchSecurity()"/> 
+											<input type="button" value="Chart" style="margin-left:25px" onclick="sec_goToChart()"> </form>
+
+											</td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <ul id="sec_market_comm_source" class="draglistwide">
+                                                </ul>
+												
+												<small>
+                                                    Double click Security for more info
+                                                </small>
+												
+                                            </td>
+                                            <td valign="middle" align="center" style="width:30px">
+                                                <small>
+                                                    Drag & drop item
+                                                </small>
+                                                <br>
+                                                <input type="button" value=">>" onclick="sec_mktCommDND.selectAll();">
+                                                <br>
+                                                <input type="button" value="<<" onclick="sec_mktCommDND.deSelectAll();">
+                                            </td>
+                                            <td valign="top">
+                                                <ul id="sec_market_comm_target" class="draglistwide">
+                                                </ul>
+												<small>
+                                                    Double click Security for more info
+                                                </small>
+                                            </td>
+                                            <td valign="top" style="width:150px;padding-left:2px">
+                                                <textarea id="sec_market_comm_target1" cols="30" rows="12"></textarea>
+                                                <small>
+                                                    Also you can specify. Use either comma or Enter for multiple items
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+ 
+                        </table>
+						<div id="sec_ticker_info_pn"  style="display:none; border:2px solid gray; margin:5px; width:800px">
+							<div align="right" style="padding:2px 5px 2px 2px;background-color:#c0c0c0;"><a href="#" onclick="sec_tickerinfo_close()"><img border="0" src="images/button_close.gif"></a></div>
+							<div style="padding:5px;background:#ffffff;border:1px solid gray;">								
+								<div id="sec_ticker_infoBBInfo"></div>
+								<div id="sec_ticker_info_pnbdy"> </div>								
+								<div style="display:none;" id="sec_tickerBBSyncInfoPane"></div>	
+						    </div>
+						</div>
+                    </td>
+                    <td valign="top" width="auto">
+                        <div id="sec_fieldTablesxl">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+		
+		
+        <!--td valign="top">
+        <div style="background-color:#AAAEAA;padding:3px;width:400px" >
+        <span class="widgetTitle">Administration &nbsp;&nbsp;</span> <input type="button" value=">>>>" onclick="toggleAdminPanel(this,'sec_adminpanel')">
+        </div>
+        <div id="sec_adminpanel" style="width:400px;display:none;border:2px solid #AAAEAA;padding:10px">
+        <strong>Commodity:</strong>
+        <select id="sec_adminTable" onchange="sec_onSelectAdminTable(this)">
+        <option value="">---Select Commodity--</option>
+        </select>
+        <div id="sec_adminpanelftables"></div>
+        </div>
+        </td-->
+    </tr>
+</table>

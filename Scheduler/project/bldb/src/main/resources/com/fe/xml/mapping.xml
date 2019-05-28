@@ -1,0 +1,47 @@
+  
+<mapping> 
+	<scheduler>
+		
+		<!--
+			valid settings
+			days=possitive numbers only i.e 2 is yesterday and today (last value of today)
+			hour: 00-23
+			minute: 00-59			
+			weekday
+		-->
+		
+
+		<!-- uncomment to activate scheduled job
+		<job days="2" hour="08" minute="20" weekday="MONDAY"/>
+		<job days="2" hour="08" minute="20" weekday="TUESDAY"/>
+		<job days="2" hour="08" minute="42" weekday="WEDNESDAY"/>
+		<job days="2" hour="08" minute="20" weekday="THURSDAY"/>
+		<job days="2" hour="08" minute="20" weekday="FRIDAY"/>
+		<job days="5" hour="08" minute="20" weekday="SATURDAY"/>
+		-->
+		
+	</scheduler>
+
+  	<commodity name="CL" bloombergmarketsector="Comdty">
+  		<!--
+		Use comma for multiple tickers 
+		-->
+  		<ticker>			
+  			CLX8,CLZ8,CLF9,CLG9,CLH9,CLJ9,CLK9,CLM9,CLN9,
+			CLQ9,CLU9,CLV9,CLX9,CLZ9,CLF0
+		</ticker>
+		<field bloomberg="PX_LAST" sqlserver="Close Price"/>
+		<field bloomberg="PX_VOLUME" sqlserver="Volume"/>			
+		<field bloomberg="OPEN_INT" sqlserver="Open Interest"/>
+		
+	</commodity>
+ 	
+	<commodity name="CL" bloombergmarketsector="Index">
+  		<ticker>  			
+  			NYM1CNCL				
+		</ticker>
+		<field bloomberg="PX_LAST" sqlserver="Commercial Long"/>
+	</commodity>	
+
+ </mapping>
+	

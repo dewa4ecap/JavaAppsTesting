@@ -1,0 +1,128 @@
+<html>
+<head>
+
+<title>test</title>
+
+ <link rel="stylesheet" type="text/css" href="jquery-1.8.2/css/cupertino/jquery-ui-1.8.2.custom.css" />
+ <link rel="stylesheet" type="text/css" href="js/jquery/multiselect.css" />
+
+ 
+  <script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-1.4.2.min.js"></script>
+  <script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-ui-1.8.2.custom.min.js"></script>
+	<script>
+     var $j = jQuery.noConflict();
+     </script>
+  
+     <style>
+		body{
+			font-family:Arial,Verdana;
+		}
+    </style>
+    
+    <script language="JavaScript">
+    										  
+    	//var wsUri = "ws://10.153.64.112:8080/bldb/ws/TomcatWSExecuteRService";
+    	
+    	var sockurl=location.pathname.replace(/(.*?)\/([a-zA-Z0-9._-]+)$/g, "$1/ws/TomcatWSExecuteRService");
+        var url="ws://"+location.host+"/"+sockurl;
+        
+    	
+    	
+    	var websocket = new WebSocket(url);
+    	
+    	websocket.onopen = function(evt) {
+    		console.log("socket open"); 
+        }; 
+        
+        websocket.onclose = function(evt) { 
+			console.log("ckised")
+			clearInterval(int_id);
+		}; 
+		
+		websocket.onmessage = function(evt) { 
+			 //evt.data;
+			 var resp=evt.data;
+			 if(resp.split("~~").length>1){
+			 	var repid=resp.split("~~")[0];
+			 	var delay=new Date().getTime()-sentArray[repid];
+			 	console.log("repid:"+delay+" rsult:"+resp.split("~~")[1]);	
+			 	
+			 }
+			 //console.log(evt.data);
+		}; 
+		
+		websocket.onerror = function(evt) { 
+			console.log("error:"+evt); 
+			
+		};
+    	
+    	
+    	var sentArray={};
+    	var int_id=null;
+    	
+    	function connect(){
+    		websocket = new WebSocket(wsUri);
+    	}
+    	
+    	function start(){
+    		int_id=setInterval(function(){
+	    		var bc=+$j("#batch_count").val();
+		    	for(ia=0;ia<bc;ia++){
+		    		var sid=new Date().getTime()+"_"+ia;
+		    		//var script=sid+"~~rserve~~"+$j("#script").val();
+		    		var script=sid+"~~rengine~~"+$j("#script").val();
+		    		sentArray[sid]=new Date().getTime();    	    		
+		    		websocket.send(script);
+	    		}
+	    	},+$j("#int_val").val());
+    	}
+    	function stop(){
+    		clearInterval(int_id);
+    		
+    	}
+    	
+    	function sendScript(){
+    		var token=$j("#token_id").val();
+    		var script=$j("#send_script").val();  			 
+		    var script1=token+"~~rserve~~"+script;
+		    sentArray[token]=new Date().getTime();    	    		
+		    websocket.send(script1);
+    		
+    	}
+    	
+    </script>
+    
+    
+    
+    
+</head>
+
+<body>
+ 
+ 
+ <table width="100%">
+ 	<tr>
+ 		<td>
+ 		 	Sending started;;
+		 	Items in a batch: <input type="textbox" id="batch_count" value="30" size="5"><br>
+		 	Delay: <input type="textbox" id="int_val" value="5000" size="5"><br>
+		 	Script:
+		 	<textarea id="script" cols="40" rows="10">Sys.sleep(.6);</textarea>
+		 	<br>
+		 	
+		 	 <input type="button" value="start" onclick="start()"/><input type="button" value="stop" onclick="stop()"/>
+ 		</td>
+ 		<td>
+ 			id: <input type="textbox" id="token_id" value="aaxxxfffdf" size="5"><br>
+ 			<textarea id="send_script" cols="40" rows="10">Sys.sleep(.6);</textarea>
+ 			<input type="button" value="Send" onclick="sendScript()"/>
+ 			
+ 		</td>
+ 	
+ 	</tr>
+
+ </table>
+ 
+  
+</body>
+</html>

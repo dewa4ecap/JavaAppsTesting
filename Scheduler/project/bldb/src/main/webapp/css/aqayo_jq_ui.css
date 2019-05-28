@@ -1,0 +1,59 @@
+
+
+
+.ui-widget-overlay {
+	background: #373838 url(../../images/menu/body-bg.png) repeat;
+	opacity: .60;
+	
+}
+.aqayo-dialog{
+	
+  border:2px solid #536880;
+  -moz-box-shadow:   0px 0px 30px 10px #B6B6B5;
+  -webkit-box-shadow: 0px 0px 30px S10px #B6B6B5;
+  box-shadow:         0px 0px 30px 10px #B6B6B5;
+  padding:0px;
+  
+	
+}
+
+
+
+.aqayo-dialog .ui-widget-header {
+	 
+	background: #536880;
+	color: #FAF7F7;
+	border-radius:0px;
+	border:0px;
+	 
+	 
+}
+
+.aqayo-dialog .ui-dialog-titlebar {
+	padding:2px 5px 2px 5px;
+	margin:0px;
+}
+
+ 
+.aqayo-dialog .aqayo-dialog-body {
+	padding:2px;
+	margin:0px;
+}
+
+.aqayo-dialog .morepadding {
+	padding:20px;
+	 
+}
+
+.aqayo-dialog .dialogrow {
+	margin-top:10px;
+}
+
+.aqayo-dialog .ui-widget-content {
+	padding:2px;
+	margin:0px;
+}
+
+.aqayo-dialog .bottombtns {
+	text-align:right;
+}

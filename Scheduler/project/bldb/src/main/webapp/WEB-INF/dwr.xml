@@ -1,0 +1,51 @@
+<!DOCTYPE dwr PUBLIC
+ "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+ "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+    <allow>
+
+	<create creator="new" javascript="AdminMgmt" scope="page">
+            <param name="class" value="com.fe.client.AdminMgmt"/>
+        </create>
+
+		<create creator="new" javascript="SchedulerMgmt" scope="page">
+            <param name="class" value="com.fe.client.SchedulerMgmt"/>
+        </create>
+
+  		<create creator="new" javascript="RFunctionMgmt" scope="page">
+            <param name="class" value="com.fe.client.RFunctionMgmt"/>
+        </create>
+		
+		<create creator="new" javascript="ExecuteRMgmt" scope="page">
+            <param name="class" value="com.fe.client.ExecuteRMgmt"/>
+        </create>	
+        
+		<create creator="new" javascript="IExecMgmt" scope="page">
+            <param name="class" value="com.fe.client.IExecMgmt"/>
+        </create>	
+		
+		<create creator="new" javascript="LoginMgmt" scope="page">
+            <param name="class" value="com.fe.client.LoginMgmt"/>
+        </create>			
+
+		<create creator="new" javascript="MenuMgmt" scope="page">
+            <param name="class" value="com.fe.client.MenuMgmt"/>
+        </create>	
+
+		
+		<!-- convert match="com.fe.ValueObject" converter="bean"/ -->				
+        <convert converter="bean" match="com.fourelementscapital.db.vo.*"/>			
+
+        <convert match="java.lang.Exception" converter="exception"/>
+		<convert match="java.lang.StackTraceElement" converter="bean"/>
+        <convert match="com.fourelementscapital.scheduler.rscript.RScript" converter="bean"/>
+		<convert match="com.fourelementscapital.scheduler.pluggin.PlugginData" converter="bean"/>
+		<convert match="com.fourelementscapital.scheduler.engines.ScheduledTaskField" converter="bean"/>
+        
+        
+        
+    </allow>
+    
+    
+</dwr>

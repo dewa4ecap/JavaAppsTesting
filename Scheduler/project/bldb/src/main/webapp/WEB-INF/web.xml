@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5">
+
+  <display-name>Welcome to Tomcat</display-name>
+  <description>
+     Welcome to Tomcat
+  </description>
+
+
+<servlet>
+  <servlet-name>dwr-invoker</servlet-name>
+  <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+<!--
+  <init-param>
+    <param-name>debug</param-name>
+    <param-value>false</param-value>
+  </init-param>
+-->
+	<init-param>
+ 		<param-name>logLevel</param-name>
+ 		<param-value>ERROR</param-value>
+	</init-param>  
+     <init-param>
+            <param-name>allowScriptTagRemoting</param-name>
+            <param-value>true</param-value>
+     </init-param>
+     <init-param> 
+            <param-name>crossDomainSessionSecurity</param-name>
+            <param-value>false</param-value>
+     </init-param>
+
+</servlet>
+
+
+<servlet>
+	<servlet-name>servletinit</servlet-name>
+	 <servlet-class>com.fe.scheduler.SchedulerInitServlet</servlet-class>
+  	<load-on-startup>0</load-on-startup>
+</servlet>
+
+
+<servlet>
+	<servlet-name>p2pinit</servlet-name>
+	 <servlet-class>com.fe.p2p.P2PServiceServlet</servlet-class>
+  	 <load-on-startup>0</load-on-startup>
+</servlet>
+
+<servlet>
+		<servlet-name>SchedulerAPIServlet</servlet-name>
+		<servlet-class>com.fe.client.SchedulerAPIServlet</servlet-class>
+	</servlet>
+
+ 	<servlet>
+		<servlet-name>rsyntax</servlet-name>
+		<servlet-class>com.fe.servlet.RSyntaxServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>fileuploader1</servlet-name>
+		<servlet-class>com.fe.servlet.FileUploader</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ace_mode_r</servlet-name>
+		<servlet-class>com.fe.servlet.AceModeRSyntax</servlet-class>
+	</servlet>	
+	
+	<listener>
+		<listener-class>com.fe.servlet.P2PServletContextListener</listener-class>
+	</listener>
+	
+	<servlet>
+        <servlet-name>TomcatWSServer</servlet-name>
+        <servlet-class>com.fourelementscapital.scheduler.p2p.websocket.TomcatWSServer</servlet-class>
+	</servlet>
+
+	 <servlet-mapping>
+        <servlet-name>TomcatWSServer</servlet-name>
+        <url-pattern>/ws/TomcatWSServer</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+        <servlet-name>TomcatWSExecuteRService</servlet-name>
+        <servlet-class>com.fe.p2p.websocket.TomcatWSExecuteRService</servlet-class>
+</servlet>
+
+<servlet-mapping>
+        <servlet-name>TomcatWSExecuteRService</servlet-name>
+        <url-pattern>/ws/TomcatWSExecuteRService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>TomcatWSConsole</servlet-name>
+        <servlet-class>com.fourelementscapital.scheduler.p2p.websocket.TomcatWSConsole</servlet-class>
+    </servlet>
+	
+	 <servlet-mapping>
+        <servlet-name>TomcatWSConsole</servlet-name>
+        <url-pattern>/ws/TomcatWSConsole</url-pattern>
+	</servlet-mapping>
+	
+
+	
+
+<servlet-mapping>
+  <servlet-name>dwr-invoker</servlet-name>
+  <url-pattern>/dwr/*</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+  <servlet-name>SchedulerAPIServlet</servlet-name>
+  <url-pattern>/schedulerAPI</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+  <servlet-name>fileuploader1</servlet-name>
+  <url-pattern>/fileuploader</url-pattern>
+</servlet-mapping>
+
+
+<servlet-mapping>
+  <servlet-name>rsyntax</servlet-name>
+  <url-pattern>/editarea_0_8_2/reg_syntax/r.js</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+  <servlet-name>ace_mode_r</servlet-name>
+  <url-pattern>/ace/src/mode-r.js</url-pattern>
+</servlet-mapping>
+
+
+
+
+  	    <filter>
+			<filter-name>monitoring</filter-name>
+			<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+        </filter>
+        <filter-mapping>
+			<filter-name>monitoring</filter-name>
+			<url-pattern>/*</url-pattern>
+        </filter-mapping>
+	<listener>
+			<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+
+
+
+</web-app>
