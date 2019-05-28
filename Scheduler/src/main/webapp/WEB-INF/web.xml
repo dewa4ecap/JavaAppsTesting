@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5">
+
+  <display-name>Welcome to Tomcat</display-name>
+  <description>
+     Welcome to Tomcat
+  </description>
+
+
+<servlet>
+  <servlet-name>dwr-invoker</servlet-name>
+  <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+	<init-param>
+ 		<param-name>logLevel</param-name>
+ 		<param-value>ERROR</param-value>
+	</init-param>  
+     <init-param>
+            <param-name>allowScriptTagRemoting</param-name>
+            <param-value>true</param-value>
+     </init-param>
+     <init-param> 
+            <param-name>crossDomainSessionSecurity</param-name>
+            <param-value>false</param-value>
+     </init-param>
+
+</servlet>
+
+
+<servlet>
+	<servlet-name>servletinit</servlet-name>
+	 <servlet-class>com.fourelementscapital.scheduler.servlet.SchedulerInitServlet</servlet-class>
+  	<load-on-startup>0</load-on-startup>
+</servlet>
+
+
+<servlet>
+	<servlet-name>p2pinit</servlet-name>
+	 <servlet-class>com.fourelementscapital.scheduler.servlet.P2PServiceServlet</servlet-class>
+  	 <load-on-startup>0</load-on-startup>
+</servlet>
+	
+	<listener>
+		<listener-class>com.fourelementscapital.scheduler.servlet.P2PServletContextListener</listener-class>
+	</listener>
+	
+	<servlet>
+        <servlet-name>TomcatWSServer</servlet-name>
+        <servlet-class>com.fourelementscapital.p2p.websocket.TomcatWSServer</servlet-class>
+	</servlet>
+
+	 <servlet-mapping>
+        <servlet-name>TomcatWSServer</servlet-name>
+        <url-pattern>/ws/TomcatWSServer</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+        <servlet-name>TomcatWSConsole</servlet-name>
+        <servlet-class>com.fourelementscapital.p2p.websocket.TomcatWSConsole</servlet-class>
+    </servlet>
+	
+	 <servlet-mapping>
+        <servlet-name>TomcatWSConsole</servlet-name>
+        <url-pattern>/ws/TomcatWSConsole</url-pattern>
+	</servlet-mapping>
+
+<servlet-mapping>
+  <servlet-name>dwr-invoker</servlet-name>
+  <url-pattern>/dwr/*</url-pattern>
+</servlet-mapping>
+
+<!-- This section for 2nd scheduler -->
+
+	<servlet>
+        <servlet-name>Launchpad</servlet-name>
+        <servlet-class>com.fourelementscapital.scheduler.launchpad.StrategyLaunchpad</servlet-class>
+    </servlet>
+	
+	 <servlet-mapping>
+        <servlet-name>Launchpad</servlet-name>
+        <url-pattern>/StrategyLaunchpad</url-pattern>
+	</servlet-mapping>      
+       
+<servlet>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+             <param-name>jersey.config.server.provider.packages</param-name>
+             <param-value>com.fourelementscapital.scheduler.api</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <url-pattern>/api/v1.2/*</url-pattern>
+    </servlet-mapping>
+	
+
+</web-app>

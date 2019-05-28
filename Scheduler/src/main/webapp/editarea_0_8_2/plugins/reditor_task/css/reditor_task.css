@@ -1,0 +1,42 @@
+#toolbar_1,#toolbar_2{
+	display:none;
+	
+}
+
+#result{
+	 border:0px;
+}
+
+.area_toolbar td.infos {
+ width:auto;	
+}
+
+#editor {
+	
+	border:1px solid #D6D5D5;
+}
+
+#line_number {
+	border-right: solid #E7E7E7 1px;
+}
+
+#result1::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+#result1::-webkit-scrollbar-track-piece {
+	background-color:#7ABDFF;
+	-webkit-border-radius: 1px;
+}
+#result1::-webkit-scrollbar-thumb:vertical {
+	height: 10px;
+	width:5px;
+	background-color: #2693FF;
+	-webkit-border-radius: 3px;
+}
+#result1::-webkit-scrollbar-thumb:horizontal {
+	width: 10px;
+	background-color: #7ABDFF;
+	-webkit-border-radius: 3px;
+}

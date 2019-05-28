@@ -1,0 +1,92 @@
+
+<html>
+	<head>
+		<title>Strategy Launchpad API</title>
+	</head>
+	<body>
+		
+	<div align="center" style="border:1px solid grey; padding:3px; font-size:3em; background-color:grey">Strategy Launchpad API</div>	
+		<P>
+
+ 
+<h2>Run script</h2>
+<pre>
+<b>Description : </b> run script
+<b>Form Parameter:</b> script : script that will be executed. 
+<b>Cookies Parameter:</b> ALSID : session ID, ALUSER : active user.
+<b>Example : </b>https://dev-qlib.alphien.com/scheduler/api/action/launchpad/run/script
+<b>Method:</b> POST
+<b>Returns:</b>
+	<code>
+	{
+	  "result": "Accepted and will be processed.Script ID : 1225"
+	}
+	</code>
+</pre>
+<hr> 
+
+<h2>Cancel script</h2>
+<pre>
+<b>Description : </b> cancel script execution
+<b>Form Parameter:</b> id : id of specific script that is being executed.
+<b>Cookies Parameter:</b> ALSID : session ID, ALUSER : active user.
+<b>Example : </b>https://dev-qlib.alphien.com/scheduler/api/action/launchpad/cancel/script
+<b>Method:</b> POST
+<b>Returns:</b>
+	<code>
+	{
+	  "result": "Rscript execution cancelled"
+	}
+	</code>
+</pre>
+<hr>
+ 
+<h2>Show status</h2>
+<pre>
+<b>Description : </b> get status of specific script
+<b>Path Parameter:</b> id : id of specific script.
+<b>Cookies Parameter:</b> ALSID : session ID, ALUSER : active user.
+<b>Example : </b>https://dev-qlib.alphien.com/scheduler/api/action/launchpad/show/status/id/1227
+<b>Method:</b> GET
+<b>Returns:</b>
+	<code>
+	{
+	  "result": "Current Status : Executing"
+	}
+	</code>
+</pre>
+<hr>
+
+<h2>Get console message</h2>
+<pre>
+<b>Description : </b> get console message of executed script
+<b>Path Parameter:</b> id : id of specific script.
+<b>Cookies Parameter:</b> ALSID : session ID, ALUSER : active user.
+<b>Example : </b>https://dev-qlib.alphien.com/scheduler/api/action/launchpad/show/console/id/1227
+<b>Method:</b> GET
+<b>Returns:</b>
+	<code>
+	{
+	  "result": "{\"consoleoutput\":\"[1] \\\"test\\\"\\n\"}"}
+	</code>
+</pre>
+<hr>
+
+<h2>Get backtest result</h2>
+<pre>
+<b>Description : </b> get backtest result of executed script. Result can be *.html or *.png file. 
+<b>Path Parameter:</b> id : id of specific script.
+<b>Cookies Parameter:</b> ALSID : session ID, ALUSER : active user.
+<b>Example : </b>https://dev-qlib.alphien.com/scheduler/api/action/launchpad/show/backtest/id/1227
+<b>Returns:</b>
+	<code>
+	{
+	  "result": "/backtest/61c570a8596852b36b56b083a9f0b213dd867f0b0b9bdce482a3c460b9b0d6b9.html"
+	}
+	</code>
+</pre>
+<hr>
+
+
+</body>
+</html>

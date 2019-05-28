@@ -1,0 +1,10 @@
+Dear $name ,
+
+Welcome back to Alphien.
+
+Due to release of enhanced security measures, your password has been reset. Please use the following temporary password to login: $passwd
+
+Note that you will be immediately prompted to change your password.
+
+Thanks and best regards,
+Alphien Team

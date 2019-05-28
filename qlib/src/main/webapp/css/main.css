@@ -1,0 +1,75 @@
+
+
+.fe-mainMenu {
+	
+	position:absolute;	
+	top:0px;
+	left:35%; 
+	border-width: 0px 2px 2px 2px;
+	border-color: #2779AA; 
+	border-style: solid;
+	padding: 0 0px 0 0px;
+	background:#D9ECFF;	
+    border-radius:0px 0px 20px 20px ;  
+    box-shadow: 2px 2px 2px #888888;
+    z-index: 99;
+}
+
+
+.user_profile {
+	background-color:#ffffff;	
+	border-radius:0px 0px 20px 20px ;  
+	
+	
+}
+
+.fe-mainMenu ul{
+	
+    margin: 2px 20 2px 20px;
+    padding: 2px;
+	list-style:square;    
+}
+
+.fe-mainMenu ul li{
+	padding-left:15px;
+	padding-right:5px;
+	display:inline;
+	background:url(../images/screenshots-circle-empty.png) left center no-repeat;
+}
+
+.fe-mainMenu ul li:first-child{
+	background:none;
+	padding-left:5px;
+}
+.fe-mainMenu ul li:last-child{ 
+	padding-right:0px;
+}
+
+.fe-mainMenu ul li a{ 
+	text-decoration: none;
+	font-weight: bold;
+	font-size:.9em;
+}
+.fe-mainMenu ul li a:hover{ 
+	text-decoration: underline;
+	color:#ff0000;
+}
+.fe-mainMenu ul li a.fe-current{ 
+	text-decoration: none;
+	color:grey;
+	cursor:text;
+}
+.fe-mainMenu ul li a.fe-current:hover{ 
+	text-decoration: none;	 
+}
+
+
+.qtip-default {
+	font-size: 15px;
+	padding: 1px 2px;
+	border-radius: 10px;
+	line-height: 1.3;
+	border-width: 2px;
+	
+	
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+	<Appenders>
+	<Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d %-7level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="FileErrorLogger" fileName="logs/imonitorError.log">
+      <PatternLayout pattern="%d %-7level %logger{36} - %msg%n"/>
+    </File>
+     <File name="FileInfoLogger" fileName="logs/imonitorInfo.log">
+      <PatternLayout pattern="%d %-7level %logger{36} - %msg%n"/>
+    </File>
+	</Appenders>
+	<Loggers>
+		<Root level="debug">
+		   <AppenderRef ref="FileErrorLogger" level="error" /> 
+		   <AppenderRef ref="FileInfoLogger" level="debug" /> 
+		   <AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>

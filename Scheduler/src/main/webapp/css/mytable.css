@@ -1,0 +1,133 @@
+.myTableCSS {
+	/*border:1px solid grey;
+	 */	
+	
+    border: 1px solid #AED0EA;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:0px;
+	-webkit-box-shadow:3px 2px 2px grey;box-shadow:3px 2px 2px grey;-moz-box-shadow:3px 2px 2px grey;
+
+		 
+}
+
+
+
+.myTableCSS thead tr {		
+	background-color:#c0c0c0; 
+	-webkit-box-shadow:0px 3px 3px grey;box-shadow:0px 3px 3px grey;-moz-box-shadow:0px 3px 3px grey;	  
+	 	 
+}
+
+
+.myTableCSS td{		
+	padding:1px 2px 1px 2px;
+	border-bottom:1px solid #AED0EA;
+	border-right:1px solid #AED0EA; 
+}
+.myTableCSS td:last-child{
+	border-right:0px;
+}
+
+
+.myTableCSS tr td{
+	border-bottom:1px solid #AED0EA;
+}
+.myTableCSS tr:last-child td{
+	border-bottom:0px ;
+}
+
+.myTableCSS tr th{		
+	border-right:1px solid #AED0EA; 
+}
+.myTableCSS tr th:last-child{		
+	border-right:0px; 
+}
+
+
+
+
+
+
+.myTableCSS th{		
+	padding:7px 2px 7px 2px;	 
+}
+ 
+.myTableCSS th{
+	text-shadow: grey 0 1px;
+	font-size:0.9em;
+}
+
+.myTableCSS tbody tr td{
+	vertical-align: middle;
+}
+
+
+.myTableCSS tbody tr:first-child top{
+	margin-top:2px;
+}
+
+.myTableCSS tbody tr:last-child td{
+	border-bottom:none;
+	padding-bottom:2px;
+}
+
+.myTableCSS tbody tr:first-child td{		
+	padding-top:2px;
+}
+
+.myTableCSS tbody tr td:nth-child(even) {
+  color:red;
+    
+   
+}
+.mytableInput{
+	border:1px solid #c0c0c0;
+	font-size:.8em;	
+	text-align:center;
+	width:65px;
+	border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;
+}
+.mytableInput.empty{
+	background-color:#e0e0e0;
+}
+.mytableInput.active{
+	border:1px solid #024F0C;
+	background-color:#BEF7C6;
+}
+
+.mytableTextArea {
+	width:310px;
+	height:80px;
+}
+
+.yui-tt{
+	background-color:#FFE47A;
+	border:2px solid grey;
+	padding:1px;
+    padding:5px;	
+	-webkit-box-shadow:3px 2px 2px grey;box-shadow:3px 2px 2px grey;-moz-box-shadow:3px 2px 2px grey;
+	width:400px;	
+	
+}
+.plusButton{
+	
+	margin-top:-10px;
+	float:right;
+}	
+.plusButton.disabled{
+	display:none;	
+}
+
+#dlg-msg-bd {
+	background-color:#FFE47A;
+	padding-left:20px;
+	-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;
+}
+.ui-dialog {
+	-webkit-box-shadow:3px 3px 5px grey;
+	box-shadow:5px 3px 5px grey;
+	-moz-box-shadow:5px 3px 5px grey;
+
+	 
+}

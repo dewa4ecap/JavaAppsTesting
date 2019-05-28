@@ -1,0 +1,56 @@
+
+.revisionList {
+	list-style-type:none;
+	height:750px;
+	/*overflow:auto;*/
+}
+
+.revisionList li .date {
+	 font-size:.8em;
+}
+
+.revisionList li {
+	border:1px solid #64B2D9;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	/*border:1px solid #243356;*/
+	margin-bottom:7px;
+	padding:6px 2px 2px 2px;
+	background-color: #AED0EA;
+ 
+	 -moz-box-shadow: 2px 2px 2px #ccc;
+  	-webkit-box-shadow: 2px 2px 2px #ccc;
+ 	 box-shadow: 2px 2px 2px #ccc;
+}
+
+.revisionList li .message {
+	margin-left:10px;
+	color:#D60047;
+	width:550px;
+	display:inline-block;
+}
+
+
+.revisionList li .svn_link_btn a{
+	margin:0px 5px 0px 0px;
+	font-weight:bold;
+	font-size:1.0em;	
+	cursor:pointer;
+	border:1px solid grey;	
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding:1px 2px 1px 15px;
+	text-decoration:none;
+	background: url("../images/plus_round.png") no-repeat scroll 2px 50% #E1F2F9; 
+	
+	 
+	
+}
+
+.revisionList li .svn_link_btn a.lnkselected{
+	/*background-color:#2EB800;*/ 
+	background: url("../images/minus_round.png") no-repeat scroll 2px 50% #E1F2F9; 
+	color:#fffff;
+}
+
+

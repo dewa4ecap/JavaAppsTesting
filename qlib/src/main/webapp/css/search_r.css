@@ -1,0 +1,146 @@
+
+
+.search_tbl {
+	width:100%;
+	display:table;
+	height:100%;	
+}
+.search_tbl  .search_tree,
+.search_tbl .search_navi,
+.search_tbl .search_reditor {
+	display:table-cell;
+	vertical-align: top;
+}
+
+
+
+
+.search_tbl  .search_tree {	
+	width:400px;
+	border:5px solid #d0d0d0;
+	border-right:0px;
+}
+
+
+.search_tbl .search_navi {
+	position:relative;	
+	width:24px;
+	padding:1px 0px;
+	background-color:#d0d0d0;
+}
+
+.search_tbl .search_editorttitle .moveup{
+	position:absolute;
+	left:10px;
+}
+
+.search_tbl .search_editorttitle .movedown{
+	position:absolute;
+	right:10px;
+}
+.search_tbl .search_reditor {
+
+	width:*;
+	border:5px solid #d0d0d0;
+	border-left:0px;
+	border-top:0px;
+	border-right:0px;
+		
+}
+
+.search_tbl .search_editorttitle {
+	background-color:#d0d0d0;
+	padding:1px 20px;
+	text-align:center;
+	font-size:1.3em;
+	position:relative;
+	
+}
+
+.search_tbl .search_tree_ul {
+	font-size:.9em;
+	height:100%;
+	overflow-y:auto;
+	overflow-x:hidden;
+	
+}
+
+.search_tbl .search_tree_ul::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+.search_tbl .search_tree_ul::-webkit-scrollbar-track-piece  {
+	 background-color: #d0d0d0; 
+	/*-webkit-border-radius: 6px;*/
+}
+.search_tbl .search_tree_ul::-webkit-scrollbar-thumb{
+	height: 50px;
+	background-color: #536474;
+	/*border: 1px solid #eee;*/
+	/*-webkit-border-radius: 6px;*/
+}
+
+.search_tbl .search_tree_ul .search_group{
+	background-image: url(../images/button_bkgnd.gif);
+	border-radius: 5px;
+	border: 1px solid #A2BCC0;
+	margin-bottom: 5px;
+	margin-right: 25px;
+	padding: 4px 5px 3px 8px;
+	box-shadow: 2px 2px 2px grey;
+	-webkit-box-shadow: -2px 2px 2px grey;
+}
+
+.search_tbl .search_tree_ul li[pfile][line] {
+	font-size:.9em;
+	cursor:pointer;
+}
+.search_tbl .search_tree_ul li .result_snip {
+	font-size:.8em;
+	margin-left:5px;
+}
+
+
+.search_tbl .search_tree_ul li[file].fileselected {
+	border:1px solid #FD8580;
+	border-right:0px;
+}
+.search_tbl .search_tree_ul li[file].fileselected,
+.search_tbl .search_tree_ul li[file].fileselected li[pfile][line]:not(.selected)
+{	
+	background-color:#FAEDED;
+}
+
+.search_tbl .search_tree_ul li[pfile][line].selected {
+	background-color:#FD8580;
+}
+
+
+
+
+.search_tbl  .ace_marker-layer .ace_active-line {
+	border-bottom: 1px solid #FD8580;
+	border-top: 1px solid #FD8580;
+	background-color: #FAEDED !important;
+}
+.search_tbl .ace-chrome .ace_gutter-active-line {	
+	/*background-color: #FD8580; /*url('../images/right_arrow20.png') no-repeat !important; 
+	border: 1px solid #FD8580;*/
+}
+
+.search_tbl .ace_marker-layer .ace_selection {
+	background: #FD8580 !important;	
+	
+}
+
+.search_tbl .ace_marker-layer .ace_selected-word {
+	background: #FD8580 !important;
+	border: 1px solid #FD8580 !important;
+}
+
+.search_tbl .ace_editor {
+	border:none;
+}
+
+
+

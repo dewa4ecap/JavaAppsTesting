@@ -1,0 +1,156 @@
+/*General Header Color.*/
+.FunctionGroupBar {
+        background-color:#F7F7F7;
+        background-image:none;
+}
+
+/*Header of Alphien Group*/
+#root_task_internal {
+        background-color:#3FC1A4;
+        background-image:none;
+}
+/*Header of Generic Utility*/
+  #root_task_generic_utility {
+  background-color:#1176E0;
+  background-image:none;
+}
+
+/*Header of Data Access*/
+  #root_task_data_retrieval {
+  background-color:#1176E0;
+  background-image:none;
+}
+
+/*Header of Research*/
+  #root_task_research {
+  background-color:#1176E0;
+  background-image:none;
+}
+
+/*Header of Backtest*/
+  #root_task_backtest {
+  background-color:#1176E0;
+  background-image:none;
+}
+
+/*Header of Cryptocurrency*/
+  #root_task_crypto {
+  background-color:#F7F7F7;
+  background-image:none;
+}
+
+/*Header of Commodity*/
+  #root_task_cmty {
+  background-color:#F7F7F7;
+  background-image:none;
+}
+
+/*Header of FX*/
+  #root_task_fx {
+  background-color:#F7F7F7;
+  background-image:none;
+}
+
+/*Header of Equity*/
+  #root_task_equity {
+  background-color:#F7F7F7;
+  background-image:none;
+}
+
+
+/*Header of User Private Group*/
+#root_task_private {
+        background-color:#AFBFC0;
+        background-image:none;
+}
+
+/*Links on the page*/
+a {
+    color: #25A22B;
+}
+
+/*Header of editor tab on the right side*/
+.ui-widget-header {
+        background: #EEEEEE;
+}
+
+/* Part 2 */
+
+
+/* SearchBox : Background */
+.rf_toolBar {
+
+}
+.rf_toolBar > li {
+        background: #EEEEEE;
+}
+
+/* Top Center Menu : Background and its border */
+.fe-mainMenu {
+        background: #EEEEEE;
+        box-shadow: 2px 2px 2px #3FC1A4;
+}
+
+/* List of Funcs : Border */
+.chromeScroll {
+        border:3px solid #EEEEEE;
+}
+
+/* List of Funcs : Scrollbar Handle - Only works in Chrome */
+.chromeScroll::-webkit-scrollbar-track-piece {
+        background-color:#757575;
+}
+
+/* List of Funcs : Scrollbar Vertical part - Only works in Chrome */
+.chromeScroll::-webkit-scrollbar-thumb:vertical {
+        background-color: #757575;
+}
+
+/* List of Funcs : Scrollbar Horizontal part - Only works in Chrome */
+.chromeScroll::-webkit-scrollbar-thumb:horizontal {
+        background-color: #767676;
+}
+
+/* Part 3 */
+
+/* Editor : Border */
+#rf_tabs > .ui-tabs-panel {
+        border-color: #EEEEEE;
+}
+
+/* Editor : Tab Non-active */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
+        border: 2px solid ##3FC1A4; background: #EEEEEE; 
+}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { 
+        color: #757575; 
+}
+
+/* Editor : Tab Hover */
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-foc$
+        border: 2px solid #3FC1A4; background: #EEEEEE; font-weight: bold; color: #3FC1A4; 
+}
+.ui-state-hover a, .ui-state-hover a:hover { 
+        color: #3FC1A4; text-decoration: none; 
+}
+
+/* Editor : Tab Active */
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { 
+        border: 2px solid #EEEEEE; background: #3FC1A4;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { 
+        color: #000000;
+}
+
+
+/* Select Function : open & active tab */
+.rf_tabactive.rf_tabopen {
+        background-color:#3FC1A4;
+}
+
+/* Select Function : active tab */
+.rf_tabopen {
+        background-color:#C2D3CD;
+}
+
+

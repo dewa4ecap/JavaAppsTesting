@@ -1,0 +1,262 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.fourelementscapital</groupId>
+	<artifactId>scheduler</artifactId>
+	<version>${revision}</version>
+	<packaging>war</packaging>
+	<name>scheduler</name>
+	<url>http://www.fourelementscapital.com</url>
+	
+	<properties>
+		<revision>3.1.0-Beta1</revision>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jersey2.version>2.19</jersey2.version>
+        <jaxrs.version>2.0.1</jaxrs.version>
+	</properties>
+	
+	<build>
+		<finalName>scheduler</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-dependency-plugin</artifactId>
+			    <configuration>
+			        <usedDependencies>
+			            <dependency>org.slf4j:slf4j-simple</dependency>
+			            <dependency>org.apache.poi:poi-ooxml</dependency>
+			        </usedDependencies>
+			    </configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+         <dependency>
+           <groupId>com.google.code.gson</groupId>
+           <artifactId>gson</artifactId>
+           <version>2.8.5</version>
+         </dependency>
+
+         <!-- JAX-RS -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${jaxrs.version}</version>
+        </dependency>
+        <!-- Jersey 2.19 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+ 
+	
+		<!--JSON format-->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20171018</version>
+		</dependency>
+
+		<!--SERVLET-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!--Connection with Peers-->
+		<dependency>
+			<groupId>net.jxta</groupId>
+			<artifactId>jxta-jxse</artifactId>
+			<version>2.5</version>
+		</dependency>
+	
+		<!--Cache system used to get queue-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-jcs-core</artifactId>
+			<version>2.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.0</version>
+		</dependency>
+		
+		<dependency>
+	        <groupId>commons-io</groupId>
+	        <artifactId>commons-io</artifactId>
+	        <version>1.4</version>
+	    </dependency> 
+      
+      <dependency>
+	        <groupId>commons-beanutils</groupId>
+	        <artifactId>commons-beanutils</artifactId>
+	        <version>1.8.0</version>
+      </dependency>
+      
+      <dependency>
+	      <groupId>org.apache.logging.log4j</groupId>
+	      <artifactId>log4j-api</artifactId>
+	      <version>2.8.1</version>
+	  </dependency>
+    
+    <dependency>
+      <groupId>org.tmatesoft.svnkit</groupId>
+      <artifactId>svnkit</artifactId>
+      <version>1.3.0.5847</version>
+    </dependency>
+    
+	<dependency>
+	    <groupId>backport-util-concurrent</groupId>
+	    <artifactId>backport-util-concurrent-java12</artifactId>
+	    <version>3.1</version>
+	</dependency>
+      
+    <!-- Need to declared to prevent "no binding slf4j" warning -->
+    <dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-simple</artifactId>
+		<version>1.7.25</version>
+	</dependency>
+	<!-- Need to declared for lib-alarm to dump alarm in XML file, instead to iMonitor -->	
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId> 
+		<version>3.6</version>
+	</dependency>
+
+		<!--4ECAP Libs Start-->
+		<dependency>
+                 <groupId>com.fourelementscapital</groupId>
+                <artifactId>lib-restapi</artifactId>
+                <version>2.1.0</version>
+        </dependency>
+		
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-alarm</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-auth</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-db</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-client</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-scheduler</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-loadbalance</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-svn</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-util</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-error</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-common</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-engines</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-p2p</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-group</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-lucene</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-sso</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-ldap</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-sha</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-config</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-pluggin</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-rserve</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-rscript</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+	</dependencies>
+	
+</project>

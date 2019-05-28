@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>RScript </title>
+<style>
+
+body {
+	font-family:Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-size:medium;
+ 
+}	
+
+</style>
+<link rel="stylesheet" type="text/css" href="jquery-1.8.2/css/cupertino/jquery-ui-1.8.2.custom.css" />
+ 
+ 
+ 
+<script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-1.4.2.min.js"></script>
+<script>
+     var $j = jQuery.noConflict();	 
+</script>
+<script language="JavaScript" type="text/javascript" src="jquery-1.8.2/js/jquery-ui-1.8.2.custom.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/script.js"></script>
+
+<style>
+ 
+</style>
+ 
+</head>
+<body>
+
+<form action="schedulerAPI" method="post">
+	
+	<div>
+	  <textarea name="script" cols="100" rows="20" id="exe_script">	</textarea>	
+	</div>
+	<input type="hidden" name="method" value="execSyncScript">
+	<div><div style="width:220px;display:inline">Unique name:</div><input type="text" id="uniquename" name="uniquename" value=""> <small>unique name to indentify in the log</small></div>
+	<div><div style="width:220px;display:inline">Execute At:</div><input type="text" id="id_executeAt" name="executeAt" value=""> <small>(Peer name)</small></div>
+	<div><div style="width:220px;display:inline">Engine:</div><input type="text" id="id_engine" name="engine" value="rserve"> <small>(rserve or rengine.  Leaving empty will choose rengine)</small></div>
+	
+	<div><!-- <input name="webSubmit" type="submit" value="Web Submit"> -->
+	<input style="margin-left:20px;" type="button" onclick="fn_asyncWeb(this)" value="Web">
+	</br><input type="submit" value="Execute Synchronously"> 
+	<input style="margin-left:20px;" type="button" onclick="fn_asyncExec(this)" value="Execute Asynchronously"></div>
+	
+</form>
+<div id="a_result" style="display:none">
+	<form action="#">
+		<div>
+		  <textarea name="script_result" cols="100" rows="7" id="script_result">	</textarea>	
+		</div>
+ 		<div><input type="button" id="getResultBtn" onclick="get_result(this)" value="Get Result"></div>
+		
+	</form>
+</div>
+ 
+
+</body>
+</html>

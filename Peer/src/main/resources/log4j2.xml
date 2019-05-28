@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%4p %d{HH:mm:ss,SSS} %C - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="ERROR">
+			<AppenderRef ref="CONSOLE"/>
+		</Root>
+    	<Logger name="log4j.logger.com.fourelementscapital.peer" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>	
+    	<Logger name="log4j.logger.com.fourelementscapital.config.Config" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.loadbalance.hsqldb" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.db" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.p2p" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.exception" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.engines" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.group" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+    	<Logger name="log4j.logger.com.fourelementscapital.client" level="ERROR" additivity="false">
+			<Appender-ref ref="CONSOLE" />
+    	</Logger>
+	
+	</Loggers>
+</Configuration>
