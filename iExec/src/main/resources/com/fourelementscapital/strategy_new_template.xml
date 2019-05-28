@@ -1,0 +1,15 @@
+ <!-- STRATEGY DESCRIPTION: -->
+<STRATEGY name="[[name]]" expireonfullfill="true" automate="AUT1">
+
+	<QUANTITY>
+	</QUANTITY>
+	
+	<PRICE>
+	</PRICE>
+	
+	<MAXQUANTITY>
+	</MAXQUANTITY>
+	
+	<MAXQTYPRICE>
+	</MAXQTYPRICE>
+</STRATEGY>

@@ -1,0 +1,68 @@
+
+.comment_dialog.ui-widget {
+	font-size:.7em;
+	
+	
+}
+
+.comment_dialog.ui-widget {
+	/*-moz-box-shadow: 5px 5px 5px #ccc;
+  	-webkit-box-shadow: 5px 5px 5px #ccc;*
+ 	box-shadow: 5px 5px 5px #ccc;*/
+	border:3px solid #7ABDFF;
+}
+
+.comment_dialog.ui-widget .ui-widget-header {
+	/*background-image:none;
+	background-color:#7ABDFF;*/
+	display:none;
+}
+
+.comment_dialog.ui-widget.rf_wikidialog{
+	font-size:.57em;
+	padding:0px;
+}
+.comment_dialog.ui-widget.rf_wikidialog .ui-widget-header {
+	display:block;
+	border:none;
+	font-size:1.6em;
+}
+.comment_dialog.rf_wikidialog .ui-dialog-content.ui-widget-content {
+	padding:1px;
+}
+
+
+.comment_dialog.ui-widget.rf_wikidialog  .wiki_tb{
+	display:none;
+}
+
+.comment_dialog.ui-widget .ui-button{
+	background-image:none;
+	background-color:#7ABDFF;	
+	-moz-box-shadow: 2px 2px 2px #ccc;
+  	-webkit-box-shadow: 2px 2px 2px #ccc;
+ 	box-shadow: 2px 2px 2px #ccc;
+	color:#000;
+}
+.comment_dialog .label{
+	font-size:1.3em;
+	font-weight:bold;
+}
+
+.ui-widget-overlay {
+	background-image: none;
+    background-color: #292929;
+    opacity: 0.8;
+}
+
+.comment_dialog.ui-widget .ui-dialog-buttonpane { 
+    margin: 0px;
+    padding: 0px 5px 0px 0px;
+    border:0px;
+}
+ 
+.comment_dialog .ui-button[disabled]{
+	background-color:#d9d9d9;
+	cursor:default;
+	color:#666666;	
+}

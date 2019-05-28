@@ -1,0 +1,14 @@
+<!DOCTYPE dwr PUBLIC
+ "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+ "http://directwebremoting.org/schema/dwr30.dtd">
+
+<dwr>
+    <allow>
+		<create creator="new" javascript="ExecuteRMgmt" scope="page">
+            <param name="class" value="com.fourelementscapital.executer.common.ExecuteRMgmt"/>
+        </create>
+
+        <convert match="java.lang.Exception" converter="exception"/>
+		<convert match="java.lang.StackTraceElement" converter="bean"/>
+    </allow>
+</dwr>

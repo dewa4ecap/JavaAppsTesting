@@ -1,0 +1,242 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.fourelementscapital</groupId>
+  <artifactId>4EcapEmailAPI</artifactId>
+  <packaging>war</packaging>
+  <version>${revision}</version>
+  <name>4EcapEmailAPI Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+   <properties>
+        <java.version>1.7</java.version>
+        <revision>1.0.0</revision>
+        <mvn-compiler-plugin.version>3.7.0</mvn-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+        <replacer.version>1.5.3</replacer.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
+        <jersey.version>2.27</jersey.version>
+        <swagger.version>2.0.2</swagger.version>
+        <swagger-ui.version>3.17.0</swagger-ui.version>
+        
+        <!-- manas machine -->
+        <swaggerHost>http://10.153.64.4:8080</swaggerHost>
+         <!-- server dev Alphien machine -->
+        <swaggerHost>https://dev-qlib.alphien.com</swaggerHost>
+        
+        <swaggerName>iMonitor</swaggerName>
+        <swaggerValue>api/v1.0/</swaggerValue>
+        <swaggerJSON>swagger.json</swaggerJSON>        
+        <webapp.filter>swagger</webapp.filter>
+        
+        <lib4ecapVersion>2.1.1</lib4ecapVersion>
+  		
+    </properties>
+    
+  
+   <build>
+    	<finalName>${swaggerName}</finalName>
+     	<sourceDirectory>src</sourceDirectory>
+		    <plugins>
+		    
+		      <plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+						<configuration>
+					  		<source>1.7</source>
+					  		<target>1.7</target>
+						</configuration>
+		      </plugin>
+		      <plugin>
+                <!-- Download Swagger UI webjar. -->
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.webjars</groupId>
+                                    <artifactId>swagger-ui</artifactId>
+                                    <version>${swagger-ui.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/swagger-ui</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Add Swagger UI resources to the war file. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <webResources combine.children="append">
+                        <resource>
+                            <directory>${project.build.directory}/swagger-ui/META-INF/resources/webjars/swagger-ui/${swagger-ui.version}</directory>
+                            <includes>
+                                <include>**/*.*</include>
+                            </includes>
+                            <targetPath>swagger-ui</targetPath>
+                        </resource>
+                    </webResources>
+                    
+                    	<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                		<filters>
+                   			<filter>${basedir}/src/main/resources/${webapp.filter}.properties</filter>
+                		</filters>
+                
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Replace the OpenAPI specification example URL with the local one. -->
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>${replacer.version}</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <file>${project.build.directory}/swagger-ui/META-INF/resources/webjars/swagger-ui/${swagger-ui.version}/index.html</file>
+                    <replacements>
+                        <replacement>
+                            <token>http://petstore.swagger.io/v2/swagger.json</token>
+                           <value>${swaggerHost}/${swaggerName}/${swaggerValue}${swaggerJSON}</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
+		</plugins>
+  </build>
+  
+ 
+  
+  
+  
+   <dependencies>
+   
+   		<!-- for servlet -->
+   		<dependency>        
+   			<groupId>javax.servlet</groupId>        
+   			<artifactId>servlet-api</artifactId>        
+   			<version>2.5</version>
+   		</dependency>
+   		
+   		<!-- For Testing -->
+	    <dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>3.8.1</version>
+		      <scope>test</scope>
+	    </dependency>
+    
+       <!-- JAX-RS -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        
+        <!-- Jersey 2.19 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>2.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.19</version>
+        </dependency>
+        
+        <!-- Depedency JSON 20171018 -->
+        <dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20171018</version>
+		</dependency>
+		
+		 <!-- Javax Mail -->
+ 		<dependency>
+    		<groupId>com.sun.mail</groupId>
+    		<artifactId>javax.mail</artifactId>
+    		<version>1.6.2</version>
+		</dependency> 
+		
+		 <!-- log4j -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.8.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.logging.log4j</groupId>
+		  <artifactId>log4j-api</artifactId>
+		  <version>2.8.1</version>
+		</dependency> 
+		
+		 <!-- Swagger UI -->
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-jaxrs</artifactId>
+		    <version>1.5.22</version>
+		</dependency>
+		 <dependency>
+	       <groupId>io.swagger</groupId>
+	       <artifactId>swagger-jersey2-jaxrs</artifactId>
+	       <version>1.5.22</version>
+	     </dependency>
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-core</artifactId>
+		    <version>1.5.22</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>1.5.22</version>
+		</dependency>
+		
+		 <!-- Mysql  JDBC  -->
+		 <dependency>
+	        <groupId>mysql</groupId>
+	        <artifactId>mysql-connector-java</artifactId>
+	        <version>5.1.12</version>
+	    </dependency>	
+		
+		
+		 <!-- Fourelements  Lib  -->
+		<dependency>
+	            <groupId>com.fourelementscapital</groupId>
+	            <artifactId>lib-db</artifactId>
+	            <version>${lib4ecapVersion}</version>
+	    </dependency>
+		<dependency>
+		      <groupId>com.fourelementscapital</groupId>
+		      <artifactId>lib-tts</artifactId>
+		      <version>${lib4ecapVersion}</version>
+		</dependency>  	
+	   	
+  </dependencies>
+  
+   
+  
+</project>

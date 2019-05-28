@@ -1,0 +1,141 @@
+
+
+#userloginForm{
+	
+	
+	width:500px;
+	margin: 50px auto -1px auto; 
+	padding:15px;
+
+    border-color: #7ABDFF;
+    border-radius: 10px ;
+    border-style: solid;
+    border-width: 4px;
+    box-shadow: 5px 5px 5px #888888;
+   	 
+   	
+}
+
+#userloginForm.loginDialog {
+	width:auto;
+	margin: 5px;
+    border-radius: 0px ;    
+    border-width: 0px;
+    box-shadow: 0px 0px 0px #888888;
+}
+
+
+.loginText,.loginPassword {
+	width:150px;
+	font-size:1.1em;
+}
+.mw-label {
+	text-align:right;
+	min-width:200px;
+}
+
+#userloginForm form{
+	margin:0px;
+}
+#userloginForm h2{
+	
+	margin:2px;
+	
+}
+
+#userloginprompt {
+	font-size: .7em;
+	
+}
+
+.mw-rememberpwd {
+	font-size:.8em;
+}
+
+
+.mw-input label {
+	font-size:.8em;
+}
+
+.mw-submit {
+	text-align: right;
+	
+}
+
+
+.mw-submit input {
+	/*border: 1px outset #2779AA;*/
+	font-size:1.3em;
+	margin-top:20px; 
+}
+
+.mw-status {
+	color:#D90D40;
+}
+
+
+
+
+.gen_dialog.ui-widget {
+	font-size:.7em;
+	
+	
+}
+
+.gen_dialog.ui-widget {
+	/*-moz-box-shadow: 5px 5px 5px #ccc;
+  	-webkit-box-shadow: 5px 5px 5px #ccc;*
+ 	box-shadow: 5px 5px 5px #ccc;*/
+	border:3px solid #7ABDFF;
+}
+
+.gen_dialog.ui-widget .ui-widget-header {
+	/*background-image:none;
+	background-color:#7ABDFF;*/
+	display:none;
+}
+
+ 
+.gen_dialog.ui-widget .ui-button{
+	background-image:none;
+	background-color:#7ABDFF;	
+	-moz-box-shadow: 2px 2px 2px #ccc;
+  	-webkit-box-shadow: 2px 2px 2px #ccc;
+ 	box-shadow: 2px 2px 2px #ccc;
+	color:#000;
+}
+.gen_dialog .label{
+	font-size:1.3em;
+	font-weight:bold;
+}
+
+.ui-widget-overlay {
+	background-image: none;
+    background-color: #292929;
+    opacity: 0.8;
+}
+
+.gen_dialog.ui-widget .ui-dialog-buttonpane { 
+    margin: 0px;
+    padding: 0px 5px 0px 0px;
+    border:0px;
+}
+ 
+.gen_dialog .ui-button[disabled]{
+	background-color:#d9d9d9;
+	cursor:default;
+	color:#666666;	
+}
+
+
+.delayMessage {
+	padding:10px;
+	margin:20px;
+	border:2px solid #7ABDFF;
+	-moz-box-shadow: 2px 2px 2px #ccc;
+  	-webkit-box-shadow: 2px 2px 2px #ccc;
+ 	box-shadow: 2px 2px 2px #ccc;
+ 	border-radius: 7px;
+	color:#C23D3D;
+	font-size:1.3em;
+}

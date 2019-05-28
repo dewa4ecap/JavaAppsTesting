@@ -1,0 +1,39 @@
+                        Release Notes for version 3.0.0                        
+						
+iTASK RELATED
+==============
+o 11404 : Java Libs improvements
+o 10106 : Standalone Peer
+
+                        Release Notes for version 3.0.0-Beta1                        
+						
+iTASK RELATED
+==============
+o 9851 : Split Scheduler code base
+o 10106 : Standalone Peer
+
+                        Release Notes for version 2.2.0                        
+						
+iTASK RELATED
+==============
+o :
+
+						
+						Release Notes for version 2.1.0
+
+iTASK RELATED
+==============
+
+o 7535 : Improve the handling of scheduler errors (Skip phone alert for error codes : 2315, 2317, 2318, 2319).
+o 7569 : Port queries to MariaDB nomenclature, move queries to DAL.
+o 7745 : If script name contains '&' then no alarm is sent to iMonitor (replace escape chars for XML).
+o 7858 : Add release note.
+o 8169 : Remove hardcoding of infrastructure from scheduler code and move it to config.
+o 8195 : Move database timeout to config.
+o 8207 : Optimize scheduler queries.
+
+
+
+                        Release Notes for version 2.0.0
+
+This is the original production version 

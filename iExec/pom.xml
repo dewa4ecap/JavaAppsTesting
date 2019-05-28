@@ -1,0 +1,139 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.fourelementscapital</groupId>
+	<artifactId>iexec</artifactId>
+	<version>3.0.0-Beta1</version>
+	<packaging>war</packaging>
+	<name>iexec</name>
+	<url>http://www.fourelementscapital.com</url>
+	<dependencies>
+
+		<!--Cache system-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-jcs-core</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<!--JCS's required dependency--> 
+		<dependency> 
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!--4ECAP Libs-->
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-alarm</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-auth</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-db</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-fileutils</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-balance</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-client</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-config</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-error</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-p2p</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-scheduler</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-svn</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fourelementscapital</groupId>
+			<artifactId>lib-util</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+ 		<!--XML format -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId> 
+			<version>3.6</version>
+		</dependency>
+
+		<!--Log dependencies-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+ 		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+
+		<!--Communication between Java on server with Javascript on client-->
+		<dependency>
+			<groupId>org.directwebremoting</groupId>
+			<artifactId>dwr</artifactId>
+			<version>3.0.2-RELEASE</version>
+		</dependency>
+
+ 		<dependency>
+			<groupId>net.jxta</groupId>
+			<artifactId>jxta-jxse</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<!-- SVN-->
+		<dependency>
+			<groupId>org.tmatesoft.svnkit</groupId>
+			<artifactId>svnkit</artifactId>
+			<version>1.3.0.5847</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>iexec</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+</project>

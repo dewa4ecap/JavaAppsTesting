@@ -1,0 +1,25 @@
+#toolbar_1{
+	display:none;
+	
+}
+
+#result{
+	 
+}
+
+.area_toolbar td.infos {
+ width:auto;	
+}
+
+#container{
+min-height: 100% !important;
+position: initial;
+}
+#content_highlight{
+min-height: 100% !important;
+line-height: normal !important;
+}
+textarea#textarea{
+/*min-height: 100% !important;*/
+line-height: normal !important;
+}

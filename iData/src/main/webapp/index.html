@@ -1,0 +1,474 @@
+
+<html>
+	<head>
+		<title>iData API</title>
+	</head>
+	<body>
+		
+	<div align="center" style="border:1px solid grey; padding:3px; font-size:3em; background-color:grey">iData API</div>	
+		<P>
+
+ 
+<h2>/get/list/bb</h2>
+<pre>
+<b>Description : </b> get list of all bb
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/list/bb
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "name": "A5",
+	      "description": "BIST 30"
+	    }, 
+	    ... ]}
+	</code>
+</pre>
+<hr> 
+
+<h2>/get/detail/bb/{name}</h2>
+<pre>
+<b>Description : </b> get detail of specific bb
+<b>Parameter:</b> name : specific bb name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/detail/bb/GC
+<b>Returns:</b>
+	<code>
+	{
+	  "result": {
+	    "extension": "Comdty",
+	    "components": "GC1S(1)",
+	    "secondTheme": "AlphienPrecious",
+	    "description": "Gold",
+	    "timeClose": "13:45:00",
+	    "timeOpen": "11:30:00",
+	    "bbName": "GC"
+	  }
+	}
+	</code>
+</pre>
+<hr>
+ 
+<h2>/get/price/bb/{name}</h2>
+<pre>
+<b>Description : </b> get all price of specific bb
+<b>Parameter:</b> name : specific bb name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/price/bb/GC
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1230825600,
+	      "val": 66.4128173
+	    }, 
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/list/contracts</h2>
+<pre>
+<b>Description : </b> get list of all contracts
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/list/contracts
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "name": "000702 CH Equity",
+	      "description": "HUNAN ZHENGHONG SCI & TECH-A"
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/detail/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get detail of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/detail/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": {
+	    "quoteUnits": "USD/t oz.",
+	    "description": "GOLD 100 OZ FUTR  Jan18",
+	    "contract_name": "GCF18 Comdty",
+	    "currency": "USD",
+	    "futureContractSize": "100",
+	    "futureExchange": "Commodity Exchange, Inc."
+	  }
+	}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/open/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get open price of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/open/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1509379200,
+	      "val": 1275.1
+	    },
+		... ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/close/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get close price of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/close/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1509292800,
+	      "val": 1279.8
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/high/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get high price of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/high/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1509292800,
+	      "val": 1279.8
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/low/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get low price of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/low/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1509379200,
+	      "val": 1270.8
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/allprice/contracts/{name}</h2>
+<pre>
+<b>Description : </b> get all price and volume of specific contract
+<b>Parameter:</b> name : specific contract name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/allprice/contracts/GCF18%20Comdty
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1509379200,
+	      "volume": 20,
+	      "high": 1275.1,
+	      "low": 1270.8,
+	      "close": 1272.4,
+	      "open": 1275.1
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/list/fundamentals</h2>
+<pre>
+<b>Description : </b> get list of all fundamental
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/list/fundamentals
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "name": "1STUSD",
+	      "description": "1ST-USD composite price: price of 1 Firstblood in USD"
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/detail/fundamentals/{name}</h2>
+<pre>
+<b>Description : </b> get detail of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/detail/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": {
+	    "field": "Volume",
+	    "secondTheme": "AlphienCrypto",
+	    "fundamentalName": "BTCUSD",
+	    "description": "BTC-USD composite price: price of 1 Bitcoin in USD"
+	  }
+	}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/open/fundamentals/{name}</h2>
+<pre>
+<b>Description : </b> get open price of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/open/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1367078400,
+	      "val": 135.3
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/close/fundamentals/{name}</h2>
+<pre>
+<b>Description : </b> get close price of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/close/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1367078400,
+	      "val": 134.21
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/high/fundamentals/{name}</h2>
+<pre>
+<b>Description : </b> get high price of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/high/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1367078400,
+	      "val": 135.98
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/low/fundamentals/{name}</h2>
+<pre>
+<b>Description : </b> get low price of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/low/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1367078400,
+	      "val": 132.1
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/allprice/fundamentals{name}</h2>
+<pre>
+<b>Description : </b> get all price of specific fundamental
+<b>Parameter:</b> name : specific fundamental name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/allprice/fundamentals/BTCUSD
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1367078400,
+	      "high": 135.98,
+	      "low": 132.1,
+	      "close": 134.21,
+	      "open": 135.3
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/list/securities</h2>
+<pre>
+<b>Description : </b> get list of all securities
+<b>Parameter:</b> 
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/list/securities
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "name": ".KWMMOI Index",
+	      "description": "managed money as % of open interest"
+	    },
+	    ... ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/detail/securities/{name}</h2>
+<pre>
+<b>Description : </b> get detail of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/detail/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": {
+	    "securityName": "000702 CH Equity",
+	    "description": "Hunan Zhenghong Science and Technology Develop Co Ltd",
+	    "source": null
+	  }
+	}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/open/securities/{name}</h2>
+<pre>
+<b>Description : </b> get open price of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/open/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1449763200,
+	      "val": 14.87
+	    },
+	    .. ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/close/securities/{name}</h2>
+<pre>
+<b>Description : </b> get close price of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/close/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1231084800,
+	      "val": 3.54
+	    },
+	    .. ]}
+	</code>
+</pre>
+<hr>
+
+
+<h2>/get/high/securities/{name}</h2>
+<pre>
+<b>Description : </b> get high price of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/high/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1449763200,
+	      "val": 15.16
+	    },
+	    .. ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/low/securities/{name}</h2>
+<pre>
+<b>Description : </b> get low price of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/low/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1449763200,
+	      "val": 14.55
+	    },
+	    .. ]}
+	</code>
+</pre>
+<hr>
+
+<h2>/get/allprice/securities/{name}</h2>
+<pre>
+<b>Description : </b> get all price of specific securities
+<b>Parameter:</b> name : specific securities name
+<b>Example : </b>https://beta-api.alphien.com/idata-1.0/api/get/allprice/securities/000702%20CH%20Equity
+<b>Returns:</b>
+	<code>
+	{
+	  "result": [
+	    {
+	      "date": 1449763200,
+	      "high": 15.16,
+	      "low": 14.55,
+	      "close": 15,
+	      "open": 14.87
+	    },
+	    .. ]}
+	</code>
+</pre>
+<hr>
+
+</body>
+</html>

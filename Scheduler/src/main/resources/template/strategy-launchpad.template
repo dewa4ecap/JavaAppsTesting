@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type='text/javascript' src='dwr/engine.js'></script>
+    <script type='text/javascript' src='dwr/util.js'></script>
+    <script type='text/javascript' src='dwr/interface/LaunchpadMgmt.js'></script>
+
+    <script>
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function getBackTest(id) {
+            $.ajax({
+                url: "https://dev-qlib.alphien.com/scheduler/api/v1.2/action/launchpad/show/backtest/taskid/"+id,
+                type: "POST",
+                data: {
+                    'ALUSER' : 'CURRENT_USER'
+                    'ALSID' : 'CURRENT_TOKEN'
+                },
+                success: function(data) {
+                    var tos = JSON.stringify(data);
+                    var msg = JSON.parse(tos).data;
+                    var check = JSON.parse(tos).message;
+        		    var backRes = "";
+                        for(var i in msg) {
+                            // key : i, value : msg[i]
+                            backRes = msg[i];
+                        }
+
+            		/*if (backRes=="Empty") {
+			            if (JSON.parse(tos).message == "Finished") {  
+                            //no backtest result	
+                        } else {
+                            setTimeout(getBackTest(id), 1000);
+            			}
+            		} else {
+                        document.getElementById("iframe_backtest").src = "https://dev-qlib.alphien.com/scheduler/"+backRes;
+		            }*/
+		            
+		            if (check == "Processing") {
+                        setTimeout(getBackTest(id), 1000);
+                    } else {
+                    	if (backRes!="Empty") {
+                    		document.getElementById("iframe_backtest").src = "https://beta.alphien.com/scheduler/"+backRes;
+                    	}
+
+                    }
+		            
+                },
+                error: error=>(console.log(error))
+            });
+        }
+
+        function getConsole(id,hit) {
+            $.ajax({
+                url: "https://dev-qlib.alphien.com/scheduler/api/v1.2/action/launchpad/show/console/taskid/"+id,
+                type: "POST",
+                data: {
+                    'ALUSER' : 'CURRENT_USER'
+                    'ALSID' : 'CURRENT_TOKEN'
+                },
+                success: function(data) {
+                    var tos = JSON.stringify(data);
+                    var msg = JSON.parse(tos).data;
+
+            		if (msg==null) {
+                                    output_console.setValue("Please wait for the result ...... " + hit , 1);
+                                    setTimeout(getConsole(id,hit+1), 1000);
+            		} else {
+                        document.getElementById("btn_console").click();
+
+		                var consoleMsg = "";
+			            for(var i in msg) {
+                            // key : i, value : msg[i]
+                           	consoleMsg = msg[i];
+                        }
+
+			            if (consoleMsg=="" || consoleMsg==null) {
+				            output_console.setValue("Please wait for the result ...... " + hit , 1);
+                            setTimeout(getConsole(id,hit+1), 1000);
+                        } else {
+                            output_console.setValue(JSON.parse(consoleMsg).consoleoutput, 1);
+                            getBackTest(id);
+			            }
+                    } 
+                },
+                error: error=>(console.log(error))
+            });
+        }
+
+        function fn_asyncWeb(process) {
+
+            var submitAccess = true;
+
+            if (process==1) {
+                var countDesc = document.getElementById("submit_desc").value;
+                if (countDesc.length<100) {
+                    submitAccess = false;
+                }
+            }
+            
+            if (!submitAccess) {
+                alert("Description length should be 100 characters or above. \n Current length only "+ countDesc.length +" characters. Please try again.");
+            }
+
+            if ((editor.getValue()!="") && submitAccess) {
+
+                output_console.setValue("Please wait for the result ...", 1);
+                
+                //clear backtest result
+                document.getElementById("iframe_backtest").src = "";
+                document.getElementById('btn_console').click();
+                
+                var script_description = "";
+                
+                //get description if any
+                if (process == 1) {
+                    script_description = document.getElementById("submit_desc").value;
+                    document.getElementById("submit_desc").value="";
+                    document.getElementById("myModal").style.display = "none";
+                }
+                
+                var counter = 0;
+                
+                document.cookie = "user_script="+editor.getValue();
+
+                $.ajax({
+                    url: "https://dev-qlib.alphien.com/scheduler/api/v1.2/action/launchpad/run/script",
+                    type: "POST",
+                    data: {
+                        'script' : editor.getValue()
+                        'ALUSER' : 'CURRENT_USER'
+                        'ALSID' : 'CURRENT_TOKEN'
+                    },
+                    success: function(res) {
+						
+            			var tos = JSON.stringify(res);
+                        var msg = JSON.parse(tos).data;
+                        var value = "";
+
+                        for(var i in msg) {
+                            // key : i, value : msg[i]
+                            value = msg[i];
+                        }
+                        getConsole(value,0);
+                    },
+                    error: error=>(console.log(error))
+                });
+
+            } else {
+                output_console.setValue("You can not run / submit empty Strategy !", 1);
+            }
+        }
+    </script>
+
+    <title>Strategy-Launchpad</title>
+
+    <link rel='stylesheet' id='font-awesome-css'  href='css/font-awesome.min.css?ver=4.7' type='text/css' media='all' />
+    <link rel='stylesheet' id='swiper-css'  href='https://dev.alphien.com/wp-content/themes/suffice/assets/css/swiper.min.css?ver=3.4.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='perfect-scrollbar-css'  href='https://dev.alphien.com/wp-content/themes/suffice/assets/css/perfect-scrollbar.min.css?ver=0.6.16' type='text/css' media='all' />
+    <link rel='stylesheet' id='suffice-style-css'  href='https://dev.alphien.com/wp-content/themes/suffice/style.css?ver=4.8.2' type='text/css' media='all' />
+    <style id='suffice-style-inline-css' type='text/css'>
+        p,
+        .widget ul li a,
+        .related-post-container .related-post-item .related-title a {
+            color: #8d909b;
+        }
+
+        span,
+        .entry-meta span,
+        .entry-meta span a,
+        .widget.widget_recent_comments .recentcomments .comment-author-link a,
+        #comments .comment-form label {
+            color: #487e8c;
+        }
+            
+    </style>
+    
+    <script type='text/javascript' src='https://dev.alphien.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wikiapi/ajax-1.11.1.min.js?ver=4.8.2'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/plugins/custom-content/custom.js?ver=4.8.2'></script>
+    
+    <script type='text/javascript'>
+    /* <![CDATA[ */
+    var cbimages = {"ajaxurl":"https:\/\/dev.alphien.com\/wp-admin\/admin-ajax.php"};
+    /* ]]> */
+    </script>
+    
+    <link rel='https://api.w.org/' href='https://dev.alphien.com/wp-json/' />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://dev.alphien.com/xmlrpc.php?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://dev.alphien.com/wp-includes/wlwmanifest.xml" /> 
+    <meta name="generator" content="WordPress 4.8.2" />
+    <link rel="canonical" href="https://dev.alphien.com/strategy-launchpad/" />
+    <link rel='shortlink' href='https://dev.alphien.com/?p=1034' />
+    <link rel="alternate" type="application/json+oembed" href="https://dev.alphien.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdev.alphien.com%2Fstrategy-launchpad%2F" />
+    <link rel="alternate" type="text/xml+oembed" href="https://dev.alphien.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdev.alphien.com%2Fstrategy-launchpad%2F&#038;format=xml" />
+    
+    <link rel="icon" href="https://dev.alphien.com/wp-content/themes/suffice/assets/img/favicon/32/launchpad.png" sizes="32x32" />
+    <link rel="icon" href="https://dev.alphien.com/wp-content/themes/suffice/assets/img/favicon/270/launchpad.png" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="https://dev.alphien.com/wp-content/themes/suffice/assets/img/favicon/270/launchpad.png" />
+    <meta name="msapplication-TileImage" content="https://dev.alphien.com/wp-content/themes/suffice/assets/img/favicon/270/launchpad.png" />
+    
+    <style>
+        button#responsive-menu-button,
+        #responsive-menu-container {
+            display: none;
+            -webkit-text-size-adjust: 100%;
+        }
+        .container-custom{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        @media screen and (max-width: 768px) {
+
+            #responsive-menu-container {
+                display: block;
+            }
+
+            #responsive-menu-container {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                z-index: 99998;
+                padding-bottom: 5px;
+                margin-bottom: -5px;
+                outline: 1px solid transparent;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box {
+                width: 100%;
+                padding: 0 2%;
+                border-radius: 2px;
+                height: 50px;
+                -webkit-appearance: none;
+            }
+
+            #responsive-menu-container.push-left,
+            #responsive-menu-container.slide-left {
+                transform: translateX(-100%);
+                -ms-transform: translateX(-100%);
+                -webkit-transform: translateX(-100%);
+                -moz-transform: translateX(-100%);
+            }
+
+            .responsive-menu-open #responsive-menu-container.push-left,
+            .responsive-menu-open #responsive-menu-container.slide-left {
+                transform: translateX(0);
+                -ms-transform: translateX(0);
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+            }
+
+            #responsive-menu-container.push-top,
+            #responsive-menu-container.slide-top {
+                transform: translateY(-100%);
+                -ms-transform: translateY(-100%);
+                -webkit-transform: translateY(-100%);
+                -moz-transform: translateY(-100%);
+            }
+
+            .responsive-menu-open #responsive-menu-container.push-top,
+            .responsive-menu-open #responsive-menu-container.slide-top {
+                transform: translateY(0);
+                -ms-transform: translateY(0);
+                -webkit-transform: translateY(0);
+                -moz-transform: translateY(0);
+            }
+
+            #responsive-menu-container.push-right,
+            #responsive-menu-container.slide-right {
+                transform: translateX(100%);
+                -ms-transform: translateX(100%);
+                -webkit-transform: translateX(100%);
+                -moz-transform: translateX(100%);
+            }
+
+            .responsive-menu-open #responsive-menu-container.push-right,
+            .responsive-menu-open #responsive-menu-container.slide-right {
+                transform: translateX(0);
+                -ms-transform: translateX(0);
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+            }
+
+            #responsive-menu-container.push-bottom,
+            #responsive-menu-container.slide-bottom {
+                transform: translateY(100%);
+                -ms-transform: translateY(100%);
+                -webkit-transform: translateY(100%);
+                -moz-transform: translateY(100%);
+            }
+
+            .responsive-menu-open #responsive-menu-container.push-bottom,
+            .responsive-menu-open #responsive-menu-container.slide-bottom {
+                transform: translateY(0);
+                -ms-transform: translateY(0);
+                -webkit-transform: translateY(0);
+                -moz-transform: translateY(0);
+            }
+
+            #responsive-menu-container,
+            #responsive-menu-container:before,
+            #responsive-menu-container:after,
+            #responsive-menu-container *,
+            #responsive-menu-container *:before,
+            #responsive-menu-container *:after {
+                 box-sizing: border-box;
+                 margin: 0;
+                 padding: 0;
+            }
+
+            #responsive-menu-container #responsive-menu-search-box,
+            #responsive-menu-container #responsive-menu-additional-content,
+            #responsive-menu-container #responsive-menu-title {
+                padding: 25px 5%;
+            }
+
+            #responsive-menu-container #responsive-menu,
+            #responsive-menu-container #responsive-menu ul {
+                width: 100%;
+            }
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu {
+                display: none;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu.responsive-menu-submenu-open {
+                 display: block;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-1 a.responsive-menu-item-link {
+                padding-left: 10%;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-2 a.responsive-menu-item-link {
+                padding-left: 15%;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-3 a.responsive-menu-item-link {
+                padding-left: 20%;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-4 a.responsive-menu-item-link {
+                padding-left: 25%;
+            }
+
+            #responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-5 a.responsive-menu-item-link {
+                padding-left: 30%;
+            }
+
+            #responsive-menu-container li.responsive-menu-item {
+                width: 100%;
+                list-style: none;
+            }
+
+            #responsive-menu-container li.responsive-menu-item a {
+                width: 100%;
+                display: block;
+                text-decoration: none;
+                padding: 0 5%;
+                position: relative;
+            }
+
+            #responsive-menu-container li.responsive-menu-item a .fa {
+                margin-right: 15px;
+            }
+
+            #responsive-menu-container li.responsive-menu-item a .responsive-menu-subarrow {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            #responsive-menu-container li.responsive-menu-item a .responsive-menu-subarrow  .fa {
+                margin-right: 0;
+            }
+
+            button#responsive-menu-button .responsive-menu-button-icon-inactive {
+                display: none;
+            }
+
+            button#responsive-menu-button {
+                z-index: 99999;
+                display: none;
+                overflow: hidden;
+                outline: none;
+            }
+
+            button#responsive-menu-button img {
+                max-width: 100%;
+            }
+
+            .responsive-menu-label {
+                display: inline-block;
+                font-weight: 600;
+                margin: 0 5px;
+                vertical-align: middle;
+            }
+
+            .responsive-menu-label .responsive-menu-button-text-open {
+                display: none;
+            }
+
+            .responsive-menu-accessible {
+                display: inline-block;
+            }
+
+            .responsive-menu-accessible .responsive-menu-box {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .responsive-menu-label.responsive-menu-label-top,
+            .responsive-menu-label.responsive-menu-label-bottom
+            {
+                display: block;
+                margin: 0 auto;
+            }
+
+            button#responsive-menu-button {
+                padding: 0 0;
+                display: inline-block;
+                cursor: pointer;
+                transition-property: opacity, filter;
+                transition-duration: 0.15s;
+                transition-timing-function: linear;
+                font: inherit;
+                color: inherit;
+                text-transform: none;
+                background-color: transparent;
+                border: 0;
+                margin: 0;
+                overflow: visible;
+                width: 40px !important;
+                height: 40px !important;
+                right: 18px !important;
+            }
+
+            .responsive-menu-box {
+                width: 25px;
+                height: 19px;
+               
+                display: inline-block;
+                position: relative;
+            }
+
+            .responsive-menu-inner {
+                display: block;
+                top: 50%;
+                margin-top: -1.5px;
+            }
+
+            .responsive-menu-inner,
+            .responsive-menu-inner::before,
+            .responsive-menu-inner::after {
+                 width: 25px;
+                 height: 3px;
+                 background-color: #fff;
+                 border-radius: 4px;
+                 position: absolute;
+                 transition-property: transform;
+                 transition-duration: 0.15s;
+                 transition-timing-function: ease;
+            }
+
+            .responsive-menu-open .responsive-menu-inner,
+            .responsive-menu-open .responsive-menu-inner::before,
+            .responsive-menu-open .responsive-menu-inner::after {
+                background-color: #fff;
+            }
+
+            button#responsive-menu-button:hover .responsive-menu-inner,
+            button#responsive-menu-button:hover .responsive-menu-inner::before,
+            button#responsive-menu-button:hover .responsive-menu-inner::after,
+            button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner,
+            button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner::before,
+            button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner::after,
+            button#responsive-menu-button:focus .responsive-menu-inner,
+            button#responsive-menu-button:focus .responsive-menu-inner::before,
+            button#responsive-menu-button:focus .responsive-menu-inner::after,
+            button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner,
+            button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner::before,
+            button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner::after {
+                background-color: #fff;
+            }
+
+            .responsive-menu-inner::before,
+            .responsive-menu-inner::after {
+                 content: "";
+                 display: block;
+            }
+
+            .responsive-menu-inner::before {
+                 top: -8px;
+            }
+
+            .responsive-menu-inner::after {
+                 bottom: -8px;
+            }
+
+            .responsive-menu-boring .responsive-menu-inner,
+            .responsive-menu-boring .responsive-menu-inner::before,
+            .responsive-menu-boring .responsive-menu-inner::after {
+                transition-property: none;
+            }
+
+            .responsive-menu-boring.is-active .responsive-menu-inner {
+                transform: rotate(45deg);
+            }
+
+            .responsive-menu-boring.is-active .responsive-menu-inner::before {
+                top: 0;
+                opacity: 0;
+            }
+
+            .responsive-menu-boring.is-active .responsive-menu-inner::after {
+                bottom: 0;
+                transform: rotate(-90deg);
+            }    
+            button#responsive-menu-button {
+                width: 55px;
+                height: 55px;
+                position: fixed;
+                top: 15px;
+                right: 5%;
+                background: #000
+            }
+
+            .responsive-menu-open button#responsive-menu-button {
+                background: #000
+            }
+
+            .responsive-menu-open button#responsive-menu-button:hover,
+            .responsive-menu-open button#responsive-menu-button:focus,
+            button#responsive-menu-button:hover,
+            button#responsive-menu-button:focus {
+                background: #000
+            }
+            
+            button#responsive-menu-button .responsive-menu-box {
+                color: #fff;
+            }
+
+            .responsive-menu-open button#responsive-menu-button .responsive-menu-box {
+                color: #fff;
+            }
+
+            .responsive-menu-label {
+                color: #fff;
+                font-size: 14px;
+                line-height: 13px;
+                    }
+
+            button#responsive-menu-button {
+                display: inline-block;
+                transition: transform 0.5s, background-color 0.5s;
+            }
+
+            
+            
+            #responsive-menu-container {
+                width: 75%;
+                left: 0;
+                transition: transform 0.5s;
+                text-align: left;
+                background: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu-wrapper {
+                background: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu-additional-content {
+                color: #fff;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box {
+                background: #fff;
+                border: 2px solid #dadada;
+                color: #333;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box:-ms-input-placeholder {
+                color: #C7C7CD;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box::-webkit-input-placeholder {
+                color: #C7C7CD;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box:-moz-placeholder {
+                color: #C7C7CD;
+                opacity: 1;
+            }
+
+            #responsive-menu-container .responsive-menu-search-box::-moz-placeholder {
+                color: #C7C7CD;
+                opacity: 1;
+            }
+
+            #responsive-menu-container .responsive-menu-item-link,
+            #responsive-menu-container #responsive-menu-title,
+            #responsive-menu-container .responsive-menu-subarrow {
+                transition: background-color 0.5s, border-color 0.5s, color 0.5s;
+            }
+
+            #responsive-menu-container #responsive-menu-title {
+                background-color: #212121;
+                color: #fff;
+                font-size: 13px;
+            }
+
+            #responsive-menu-container #responsive-menu-title a {
+                color: #fff;
+                font-size: 13px;
+                text-decoration: none;
+            }
+
+            #responsive-menu-container #responsive-menu-title a:hover {
+                color: #fff;
+            }
+
+            #responsive-menu-container #responsive-menu-title:hover {
+                background-color: #212121;
+                color: #fff;
+            }
+
+            #responsive-menu-container #responsive-menu-title:hover a {
+                color: #fff;
+            }
+
+            #responsive-menu-container #responsive-menu-title #responsive-menu-title-image {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 15px;
+            }
+
+            #responsive-menu-container #responsive-menu > li.responsive-menu-item:first-child > a {
+                border-top: 1px solid #212121;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item .responsive-menu-item-link {
+                font-size: 13px;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a {
+                line-height: 40px;
+                border-bottom: 1px solid #212121;
+                color: #fff;
+                background-color: #212121;
+                    }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a:hover {
+                color: #fff;
+                background-color: #3f3f3f;
+                border-color: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a:hover .responsive-menu-subarrow {
+                color: #fff;
+                border-color: #3f3f3f;
+                background-color: #3f3f3f;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a:hover .responsive-menu-subarrow.responsive-menu-subarrow-active {
+                color: #fff;
+                border-color: #3f3f3f;
+                background-color: #3f3f3f;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow {
+                right: 0;
+                height: 40px;
+                line-height: 40px;
+                width: 40px;
+                color: #fff;
+                border-left: 1px solid #212121;
+                background-color: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active {
+                color: #fff;
+                border-color: #212121;
+                background-color: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active:hover {
+                color: #fff;
+                border-color: #3f3f3f;
+                background-color: #3f3f3f;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow:hover {
+                color: #fff;
+                border-color: #3f3f3f;
+                background-color: #3f3f3f;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-current-item > .responsive-menu-item-link {
+                background-color: #212121;
+                color: #fff;
+                border-color: #212121;
+            }
+
+            #responsive-menu-container #responsive-menu li.responsive-menu-current-item > .responsive-menu-item-link:hover {
+                background-color: #3f3f3f;
+                color: #fff;
+                border-color: #3f3f3f;
+            }
+
+            
+            .navigation-togglers-wrapper {
+                display: none !important;
+            }
+        }
+    </style>
+    <script>
+        jQuery(document).ready(function($) {
+
+            var ResponsiveMenu = {
+                trigger: '#responsive-menu-button',
+                animationSpeed: 500,
+                breakpoint: 768,
+                pushButton: 'off',
+                animationType: 'slide',
+                animationSide: 'left',
+                pageWrapper: '',
+                isOpen: false,
+                triggerTypes: 'click',
+                activeClass: 'is-active',
+                container: '#responsive-menu-container',
+                openClass: 'responsive-menu-open',
+                accordion: 'off',
+                activeArrow: '▲',
+                inactiveArrow: '▼',
+                wrapper: '#responsive-menu-wrapper',
+                closeOnBodyClick: 'off',
+                closeOnLinkClick: 'off',
+                itemTriggerSubMenu: 'off',
+                linkElement: '.responsive-menu-item-link',
+                openMenu: function() {
+                    $(this.trigger).addClass(this.activeClass);
+                    $('html').addClass(this.openClass);
+                    $('.responsive-menu-button-icon-active').hide();
+                    $('.responsive-menu-button-icon-inactive').show();
+                    this.setButtonTextOpen();
+                    this.setWrapperTranslate();
+                    this.isOpen = true;
+                },
+                closeMenu: function() {
+                    $(this.trigger).removeClass(this.activeClass);
+                    $('html').removeClass(this.openClass);
+                    $('.responsive-menu-button-icon-inactive').hide();
+                    $('.responsive-menu-button-icon-active').show();
+                    this.setButtonText();
+                    this.clearWrapperTranslate();
+                    this.isOpen = false;
+                },
+                setButtonText: function() {
+                    if($('.responsive-menu-button-text-open').length > 0 && $('.responsive-menu-button-text').length > 0) {
+                        $('.responsive-menu-button-text-open').hide();
+                        $('.responsive-menu-button-text').show();
+                    }
+                },
+                setButtonTextOpen: function() {
+                    if($('.responsive-menu-button-text').length > 0 && $('.responsive-menu-button-text-open').length > 0) {
+                        $('.responsive-menu-button-text').hide();
+                        $('.responsive-menu-button-text-open').show();
+                    }
+                },
+                triggerMenu: function() {
+                    this.isOpen ? this.closeMenu() : this.openMenu();
+                },
+                triggerSubArrow: function(subarrow) {
+                    var sub_menu = $(subarrow).parent().siblings('.responsive-menu-submenu');
+                    var self = this;
+                    if(this.accordion == 'on') {
+                        /* Get Top Most Parent and the siblings */
+                        var top_siblings = sub_menu.parents('.responsive-menu-item-has-children').last().siblings('.responsive-menu-item-has-children');
+                        var first_siblings = sub_menu.parents('.responsive-menu-item-has-children').first().siblings('.responsive-menu-item-has-children');
+                        /* Close up just the top level parents to key the rest as it was */
+                        top_siblings.children('.responsive-menu-submenu').slideUp(200, 'linear').removeClass('responsive-menu-submenu-open');
+                        /* Set each parent arrow to inactive */
+                        top_siblings.each(function() {
+                            $(this).find('.responsive-menu-subarrow').first().html(self.inactiveArrow);
+                            $(this).find('.responsive-menu-subarrow').first().removeClass('responsive-menu-subarrow-active');
+                        });
+                        /* Now Repeat for the current item siblings */
+                        first_siblings.children('.responsive-menu-submenu').slideUp(200, 'linear').removeClass('responsive-menu-submenu-open');
+                        first_siblings.each(function() {
+                            $(this).find('.responsive-menu-subarrow').first().html(self.inactiveArrow);
+                            $(this).find('.responsive-menu-subarrow').first().removeClass('responsive-menu-subarrow-active');
+                        });
+                    }
+                    if(sub_menu.hasClass('responsive-menu-submenu-open')) {
+                        sub_menu.slideUp(200, 'linear').removeClass('responsive-menu-submenu-open');
+                        $(subarrow).html(this.inactiveArrow);
+                        $(subarrow).removeClass('responsive-menu-subarrow-active');
+                    } else {
+                        sub_menu.slideDown(200, 'linear').addClass('responsive-menu-submenu-open');
+                        $(subarrow).html(this.activeArrow);
+                        $(subarrow).addClass('responsive-menu-subarrow-active');
+                    }
+                },
+                menuHeight: function() {
+                    return $(this.container).height();
+                },
+                menuWidth: function() {
+                    return $(this.container).width();
+                },
+                wrapperHeight: function() {
+                    return $(this.wrapper).height();
+                },
+                setWrapperTranslate: function() {
+                    switch(this.animationSide) {
+                        case 'left':
+                            translate = 'translateX(' + this.menuWidth() + 'px)'; break;
+                        case 'right':
+                            translate = 'translateX(-' + this.menuWidth() + 'px)'; break;
+                        case 'top':
+                            translate = 'translateY(' + this.wrapperHeight() + 'px)'; break;
+                        case 'bottom':
+                            translate = 'translateY(-' + this.menuHeight() + 'px)'; break;
+                    }
+                    if(this.animationType == 'push') {
+                        $(this.pageWrapper).css({'transform':translate});
+                        $('html, body').css('overflow-x', 'hidden');
+                    }
+                    if(this.pushButton == 'on') {
+                        $('#responsive-menu-button').css({'transform':translate});
+                    }
+                },
+                clearWrapperTranslate: function() {
+                    var self = this;
+                    if(this.animationType == 'push') {
+                        $(this.pageWrapper).css({'transform':''});
+                        setTimeout(function() {
+                            $('html, body').css('overflow-x', '');
+                        }, self.animationSpeed);
+                    }
+                    if(this.pushButton == 'on') {
+                        $('#responsive-menu-button').css({'transform':''});
+                    }
+                },
+                init: function() {
+                    var self = this;
+                    $(this.trigger).on(this.triggerTypes, function(e){
+                        e.stopPropagation();
+                        self.triggerMenu();
+                    });
+                    $(this.trigger).mouseup(function(){
+                        $(self.trigger).blur();
+                    });
+                    $('.responsive-menu-subarrow').on('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self.triggerSubArrow(this);
+                    });
+                    $(window).resize(function() {
+                        if($(window).width() > self.breakpoint) {
+                            if(self.isOpen){
+                                self.closeMenu();
+                            }
+                        } else {
+                            if($('.responsive-menu-open').length>0){
+                                self.setWrapperTranslate();
+                            }
+                        }
+                    });
+                    if(this.closeOnLinkClick == 'on') {
+                        $(this.linkElement).on('click', function(e) {
+                            e.preventDefault();
+                            /* Fix for when close menu on parent clicks is on */
+                            if(self.itemTriggerSubMenu == 'on' && $(this).is('.responsive-menu-item-has-children > ' + self.linkElement)) {
+                                return;
+                            }
+                            old_href = $(this).attr('href');
+                            old_target = typeof $(this).attr('target') == 'undefined' ? '_self' : $(this).attr('target');
+                            if(self.isOpen) {
+                                if($(e.target).closest('.responsive-menu-subarrow').length) {
+                                    return;
+                                }
+                                self.closeMenu();
+                                setTimeout(function() {
+                                    window.open(old_href, old_target);
+                                }, self.animationSpeed);
+                            }
+                        });
+                    }
+                    if(this.closeOnBodyClick == 'on') {
+                        $(document).on('click', 'body', function(e) {
+                            if(self.isOpen) {
+                                if($(e.target).closest('#responsive-menu-container').length || $(e.target).closest('#responsive-menu-button').length) {
+                                    return;
+                                }
+                            }
+                            self.closeMenu();
+                        });
+                    }
+                    if(this.itemTriggerSubMenu == 'on') {
+                        $('.responsive-menu-item-has-children > ' + this.linkElement).on('click', function(e) {
+                            e.preventDefault();
+                            self.triggerSubArrow($(this).children('.responsive-menu-subarrow').first());
+                        });
+                    }
+                }
+            };
+            ResponsiveMenu.init();
+        });
+    </script>
+</head>
+
+<body class="page-template-default page page-id-1034 logged-in wp-custom-logo group-blog full-width wide responsive-menu-slide-left">
+
+
+    <div id="page" class="site" style="position:absolute;top:10px;bottom: 10px; width:100%;">
+        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+        <div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/"></div>
+
+        <div id="content-custom" class="site-content">
+            <div class="container-custom">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main" role="main">
+                        <article id="post-1034" class="post-1034 page type-page status-publish hentry">
+                            <div class="entry-content">
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                                <script src="/scheduler/ace/src/ace.js"></script>
+                                <script src="/scheduler/ace/src/mode-r.js"></script>
+                                <script src="/scheduler/ace/src/theme-dreamweaver.js"></script>
+
+                                <style type="text/css" media="screen">
+                                    #editor { 
+                                        // height: 700px;
+                                        height: 500px;
+                                        position: relative;
+                                        margin-top: 30px;
+                                    }
+
+                                    .tab button {
+                                        background-color: inherit;
+                                        float: left;
+                                        border: none;
+                                        outline: none;
+                                        cursor: pointer;
+                                        transition: 0.3s;
+                                        font-size: 17px;
+                                    }
+
+                                    .tab button:hover {
+                                        background-color: #ddd;
+                                    }
+
+                                    .tabcontent {
+                                        display: none;
+                                        padding: 6px 12px;
+                                        border-top: none;
+                                    }
+
+                                    iframe {
+                                        overflow: scroll;
+                                        width: 700px;
+                                    }
+
+
+                                    #sl_consolemenu .tablinks{
+                                        color: #333333;
+                                        font-family: Montserrat;
+                                        font-size: 12px;
+                                        line-height: 14px;
+                                        height: 22px;
+                                    }
+
+
+                                    #sl_firstrow{
+                                        border-bottom: 1px solid #979797;
+                                    }
+
+                                    #sl_secondrow{
+                                        border-left: 1px solid #979797;
+                                        border-right: 1px solid #979797;
+                                        border-bottom: 1px solid #979797;
+                                        background-color: #fff;
+                                    }
+
+                                    #s2_mainright{
+                                        border-right: 1px solid #979797;
+                                        padding-right: 30px;
+                                    }
+
+                                    #sl_mainright{
+                                        padding-left: 0px !important;
+                                        padding-right: 0px !important;
+                                        font-family: Montserrat;
+                                        font-size: 14px;
+                                        color: #000;
+                                        background-color: #fff;
+                                        height: 700px;
+                                    }
+
+                                    #sl_menu, #sl_help{
+                                       font-family: Montserrat;
+                                       font-size: 14px;
+                                       color: #000;
+                                       padding-top: 15px;
+                                       padding-bottom: 15px;
+                                    }
+
+                                    #sl_help{
+                                        text-align:right;
+                                    }
+
+                                    #sl_console{
+                                        min-height: 722px;
+                                        height: 722px;
+                                    }
+
+                                    #sl_consolemenu{
+                                       padding-left: 0px; 
+                                    }
+
+                                    #sl_consolemenu #btn_console{
+                                       border-bottom: 1px solid #979797;
+                                    }
+
+                                    #sl_consolemenu #btn_backtest{
+                                       border-bottom: 1px solid #979797;
+                                       border-right: 1px solid #979797; 
+                                    }
+
+                                    .ace_gutter,
+                                    .ace_gutter-cell{
+                                       background-color: #fff !important; 
+                                    }
+
+                                    .tab button.active {
+                                        background-color: #4A4A4A !important;
+                                        color: #fff !important;
+                                    }
+
+                                    #sl_menu .menu{
+                                        color: #989898;
+                                        font-family: Montserrat;
+                                        font-size: 14px;
+                                        line-height: 14px;
+                                        border: 1px solid #E0E0E0;
+                                        border-radius: 1px;
+                                        padding: 8px 8px;
+                                        text-align: center;
+                                        cursor: pointer;
+                                    }
+
+                                    #sl_menu #run,
+                                    #sl_menu #submit
+                                    {
+                                        border: 1px solid #989898;
+                                    }
+
+                                    #sl_menu #run{
+                                        width: 100px;
+                                        margin-right: 1em;
+                                    }
+
+                                    #sl_menu #submit{
+                                        width: 100px;
+                                    }
+
+                                    #sl_menu .menu a{
+                                        color: #333333;
+                                    }
+
+                                    #sl_menu #run:hover,
+                                    #sl_menu #submit:hover
+                                    {
+                                        background-color: #4A4A4A;
+                                        color: #FFF;
+                                    }
+
+                                    #sl_menu #run:hover > a,
+                                    #sl_menu #submit:hover > a{
+                                        color: #FFF;
+                                    }
+
+                                    #sl_menu #submit a{
+                                        color: #25A22B;
+                                    }
+
+                                    #sl_menu #run_selected{
+                                        width: 115px;
+                                    }
+
+                                    #sl_topbar, #sl_menu{
+                                        padding-left: 0px;
+                                        /*display: inline-flex;*/
+                                        display: inline-block;
+                                    }
+
+                                    #sl_menu #save_as,
+                                    #sl_menu #run_selected
+                                    {
+                                        margin-right: 10px;
+                                        border-left: none;  
+                                    }
+
+                                    .error-404 .pnf-title{
+                                        text-transform: uppercase;
+                                    }
+
+                                    .error-404 .pnf-button{
+                                        background-color: #282A2C;
+                                    }
+
+                                    #sl_menu .icon
+                                    {
+                                        width: 29px;
+                                        font-size: 14px;
+                                    }
+
+                                    #btn_console .fa{
+                                        border: 1px solid;
+                                        padding: 1px 3px;
+                                        border-radius: 2px;
+                                        font-size: 8px;
+                                        margin-bottom: 1px;
+                                    }
+
+                                    .submission{
+                                        display: none; 
+                                        position: fixed;
+                                        z-index: 5; 
+                                        padding-top: 100px; 
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; 
+                                        height: 100%; 
+                                        overflow: auto; 
+                                        background-color: rgb(0,0,0); 
+                                        background-color: rgba(0,0,0,0.4); 
+                                    }
+
+                                    .submission-content-home{
+                                        background-color: #fefefe;
+                                        margin: auto;
+                                        padding: 20px;
+                                        border: 1px solid #44DEBD;
+                                        width: 50%;
+                                        height: auto;
+                                    }
+
+                                    #submission_text div{
+                                        font-size: 18px;
+                                        color: #4A4A4A;
+                                        font-family: Montserrat;
+                                        font-weight: 500;
+                                    }
+
+                                    #submission_text{
+                                        margin-top: 2em;
+                                        margin-bottom: 2em;
+                                    }
+
+
+                                    #submit_title{
+                                        text-align: center;
+                                        font-size: 30px !important;
+                                        font-weight: 600 !important;
+                                        margin-bottom: 1em;
+                                        color:#000 !important;
+                                    }
+
+                                    .submit-label{
+                                        height: 2.5em;
+                                        padding-top: 15px;
+                                        padding-bottom: 5px;
+                                        color: #000 !important;
+                                        font-size: 16px !important;
+                                        font-weight: 600 !important;
+                                    }
+
+                                    #submit_result{
+                                        /*width: 100%;*/
+                                        border-radius: 1.1em;
+                                        height: 100px;
+                                        /*padding-left: 1.5em;*/
+                                        background-color: rgba(235,235,235,0.6);
+                                        border: none;
+                                        padding-top: 15px;
+                                    }
+
+                                    #submit_result::placeholder,
+                                    #submit_desc::placeholder
+                                    {
+                                        color: #000;
+                                        font-family: Montserrat;
+                                        font-size: 15px;
+                                    }
+
+                                    #submit_desc{
+                                        border-radius: 1.1em;
+                                        height: 100px;
+                                        padding-left: 1.5em;
+                                        padding-top: 1em;
+                                        background-color: rgba(235,235,235,0.6);
+                                        border: none;
+                                        
+                                    }
+
+                                    #submit_button_send .button-main-submit{
+                                        margin-left: 0px;
+                                        margin-top: 0px;
+                                        padding: 10px 5em;
+                                        font-size: 15px;
+                                        color: #fff;
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                        letter-spacing: 2px;
+                                    }
+
+                                    #submit_button_cancel .button-main-submit{
+                                        margin-left: 0px;
+                                        margin-top: 0px;
+                                        padding: 10px 5em;
+                                        font-size: 15px;
+                                        letter-spacing: 1px;
+                                        background-color: #f3f3f3;
+                                        border: none;
+                                        color: #000;
+                                        font-weight: 300;
+                                        height: 41px;
+                                    }
+
+                                    .button-main-submit{
+                                        border: 1px solid #25A22B;
+                                        padding: 13px 3.5em 13px 3.5em;
+                                        margin-left: 0px;
+                                        display: inline-block;
+                                        background-color: #25A22B;
+                                        border-radius: 2em;
+                                        position: relative;
+                                        cursor: pointer;
+                                    }
+
+                                    #submit_name{
+                                        height: 2.5em;
+                                        padding-top: 15px;
+                                        padding-bottom: 5px;
+                                        color: #000 !important;
+                                        font-weight: 600 !important;
+                                    }
+
+                                    .button-main-submit:hover{
+                                        box-shadow: 0 0 20px 0 rgba(0,0,0,0.1), 0 2px 40px 0 rgba(0,0,0,0.17);
+                                    }
+
+                                    .ace-tm .ace_print-margin{
+                                        width: 0px;
+                                    }
+                                    
+                                    
+                                    .ace_print-margin{
+                                        width: 1px !important;
+                                    }
+                                    #sl_menu .chnage-theme-elm{
+                                        margin-right: 1em;
+                                        width: 100px;
+                                        cursor: pointer;
+                                        border: 1px solid #989898;
+                                    }
+                                    #sl_menu #btn_change_theme_dark{
+                                        background-color: #4A4A4A;
+                                    }
+                                    #sl_menu #btn_change_theme_dark a{
+                                        color:#fff;
+                                    }
+                                    .cont_dark_style #sl_secondrow{
+                                        background-color: #161616;
+                                    }
+                                    .cont_dark_style #sl_secondrow{
+                                        background-color: #161616;
+                                    }
+                                    .cont_dark_style #sl_mainright{
+                                        background-color: #161616;
+                                    }
+                                    .cont_dark_style .ace_gutter,
+                                    .cont_dark_style .ace_gutter-cell{
+                                        background-color: #161616 !important;
+                                    }
+                                    .cont_dark_style #sl_consolemenu .tablinks{
+                                        color: #f1f1f1;
+                                    }
+
+                                    @media (max-width: 767px) {
+                                        #s2_mainright{
+                                            border-right: none;
+                                        }
+
+                                        #sl_mainright{
+                                            border-top: 1px solid #979797;
+                                        }
+                                    }
+                                </style>
+                                <div id="container-launchpad-out-id">
+                                    <div id="sl_firstrow" class="row">
+                                        <div id="sl_topbar" class="col-sm-12">
+                                            <div id="sl_menu" class="col-sm-12">
+                                                <div id="btn_change_theme_dark" class="chnage-theme-elm menu col-sm-2" title="Change theme to dark">
+                                                    <a onclick="changeThemeAce('dark');">
+                                                        <i class="fa fa-file-text" aria-hidden="true"></i> Dark
+                                                    </a>
+                                                </div>
+                                                <div id="btn_change_theme_light" class="chnage-theme-elm menu col-sm-2" title="Change theme to light" style="display: none;">
+                                                    <a id="btn_change_theme_light" onclick="changeThemeAce('light');">
+                                                        <i class="fa fa-file-text-o" aria-hidden="true"></i> Light
+                                                    </a>
+                                                </div>
+
+                                                <!--Save | Save as | <a href="#" onclick="fn_asyncWeb(0);">Run</a> | Run selected | <a href="#" onclick="fn_asyncWeb(1);">Submit</a>-->
+                                                <div id="save" class="menu icon col-sm-2" title="Save" style="display:none;">
+                                                    <i class="fa-save fa"></i>
+                                                </div>
+                                                <div id="save_as" class="menu icon col-sm-2" title="Save AS" style="display:none;">
+                                                    <i class=" fa fa-clipboard"></i>
+                                                </div>
+                                                <div id="run" class="menu col-sm-2" title="Run">
+                                                    <a href="#" onclick="fn_asyncWeb(0);"><i class="fa-play fa"></i> Run</a>
+                                                </div>
+                                                <div id="run_selected" class="menu col-sm-2" title="Run Selected" style="display:none;">
+                                                    <i class=" fa fa-forward"></i> Run Selected
+                                                </div>
+                                                <!--<div id="submit" class="menu col-sm-2" title="Submit">
+                                                    <a href="#" onclick="displayBox();">Submit</a>
+                                                </div>-->
+                                                <div id="logout" class="menu col-sm-2" title="Logout" style="float:right;">
+                                                    <a href="login.jsp?action=logout"><i class="fa-play fa"></i> Logout</a>
+                                                </div>
+                                            </div>
+                                            <div id="sl_help" class="col-sm-4" style="display:none;">
+                                                Help
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="sl_secondrow" class="row">
+                                        <div id="s2_mainright" class="col-sm-6 cont_editor_resize">
+                                            <div id="editor" name="editor" class=""></div>
+                                        </div>
+
+                                        <div id="sl_mainright" class="col-sm-6 cont_editor_resize">
+                                            <div id="sl_consolerow" class="row">
+                                                <div id="sl_consolemenu" class="col-sm-12">
+                                                    <div class="tab">
+                                                        <button class="tablinks active" onclick="openOutput(event, 'Console');" id="btn_console">
+                                                            <i class=" fa fa-terminal"></i>
+                                                            Console
+                                                        </button>
+                                                        <button class="tablinks" onclick="openOutput(event, 'Backtest');" id="btn_backtest">
+                                                            <i class=" fa fa-gear"></i>
+                                                            Backtest
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div id="Console" class="tabcontent" style="display:block;">
+                                                    <!--Console here-->
+                                                    <!-- <div id="sl_console" class="col-sm-12" style="height: 600px;position: relative;"></div> --> <!-- gama was here -->
+                                                    <div id="sl_console" class="col-sm-12" style="position: relative;"></div> <!-- gama was here -->
+                                                </div>
+                                                <div id="Backtest" class="tabcontent" style="display:none;">
+                                                    <div id="sl_backtest" class="col-sm-12">
+                                                        <iframe id="iframe_backtest" width="100%" scrolling="yes" frameborder="0" style="background:inherit;"></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="myModal" class="submission" style="top:10%;">
+                                        <div class="submission-content-home" style="border:none;">
+                                            <div id="submission_text">
+                                                <div class="row">
+                                                    <div id="submit_title" class="col-sm-12">
+                                                        Submission Window
+                                                    </div>    
+                                                </div>
+                                                <div class="row">
+                                                    <div id="submit_success" class="col-sm-12">
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-3 col-lg-2 submit-label">
+                                                        Name
+                                                    </div>
+                                                    <div id="submit_name" class="col-sm-12 col-md-6 col-lg-10">
+                                                        test
+                                                    </div>   
+                                                </div>
+
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col-sm-12 col-md-3 col-lg-2 submit-label">
+                                                        Check result
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-10">
+                                                        <textarea id="submit_result" name="submit_result" disabled>&lt;auto-populated to inform user if code pass check&gt;
+                                                        </textarea>
+                                                    </div>    
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-3 col-lg-2 submit-label">
+                                                        Description
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-10">
+                                                        <textarea id="submit_desc" name="submit_desc" rows="4" cols="50" placeholder="Minimum 100 characters"></textarea>
+                                                    </div>    
+                                                </div>  
+
+                                                <div class="row" style="margin-top:1em;">
+                                                    <div class="col-sm-12 col-md-3 col-lg-2"></div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-10">
+                                                        <div id="submit_button_send" class="col-sm-6">
+                                                            <a href="#" onclick="fn_asyncWeb(1);">
+                                                                <div class="button-main-submit" >
+                                                                    Submit
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                        <div id="submit_button_cancel" class="col-sm-6">
+                                                            <a href="#" onclick="cancel_invite();">
+                                                                <div class="button-main-submit" >
+                                                                    Cancel
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    var editor = ace.edit("editor");
+                                    var output_console = ace.edit("sl_console");
+                    
+                                    output_console.setReadOnly(true);
+                                    output_console.getSession().setUseWrapMode(true);
+                                    output_console.setHighlightActiveLine(false);
+                                    output_console.setTheme("ace/theme/dreamweaver");
+                                    output_console.session.setMode("ace/mode/r");
+                                    output_console.setHighlightActiveLine(false);
+                                    output_console.setHighlightSelectedWord(false);
+                                    output_console.setHighlightGutterLine(false);
+
+                                    editor.setTheme("ace/theme/dreamweaver");
+                                    editor.getSession().setUseWrapMode(true);
+                                    editor.setHighlightActiveLine(false);
+                                    editor.session.setMode("ace/mode/r");
+                                    editor.setOptions({
+                                        printMarginColumn: 65,
+                                    });
+
+
+                                    if(getCookie("user_script")!="") {
+                                        editor.getSession().setValue(getCookie("user_script"));
+                                    }
+                                    if(getCookie("user_console_output")!="") {
+                                        output_console.getSession().setValue(getCookie("user_console_output"));
+                                    }
+                                    if(getCookie("user_backtest_output")!="") {
+                                        document.getElementById("iframe_backtest").src = getCookie("user_console_output");
+                                    }
+
+
+                                    function openOutput(evt, tabName) {
+                                        var i, tabcontent, tablinks;
+                                        tabcontent = document.getElementsByClassName("tabcontent");
+                                        for (i = 0; i < tabcontent.length; i++) {
+                                            tabcontent[i].style.display = "none";
+                                        }
+                                        tablinks = document.getElementsByClassName("tablinks");
+                                        for (i = 0; i < tablinks.length; i++) {
+                                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                                        }
+                                        document.getElementById(tabName).style.display = "block";
+                                        evt.currentTarget.className += " active";
+                                    }
+
+                                    var modal = document.getElementById("myModal");
+                                    var span = document.getElementsByClassName("close");
+                                    if(span.length > 0){
+                                        span[0].onclick = function() {
+                                            modal.style.display = "none";
+                                        }    
+                                    }
+                                    
+                                    window.onclick = function(event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+                                        }
+                                    }
+                                    function displayBox(){
+                                        if (editor.getValue()!="") {
+                                            modal.style.display = "block";
+                                        } else {
+                                            output_console.setValue("You can not run / submit empty Strategy !", 1);        
+                                        }
+                                    }
+                                    function cancel_invite(){
+                                        modal.style.display = "none";
+                                    }
+
+                                    // riyan
+                                    function disableScroll(){
+                                        $("html, body").animate({scrollTop: "0px"}, 0);
+                                        var h_window = $(window).height();
+                                        var w_window = $(window).width();
+                                        var content_cont = h_window - 195;
+                                        var content_editor = h_window - 225;
+
+                                        setTimeout(function(){
+                                            var elmeditor = $("#editor");
+                                            var elmconsole = $("#sl_console");
+
+                                            var elmscreoll = $(".ace_scrollbar");
+                                            var elmiframeback = $("#iframe_backtest");
+
+                                            var elmresize = $(".ace_content");
+                                            var elmcontainer = $(".cont_editor_resize");
+                                            if(elmeditor.length && elmresize.length && elmcontainer.length && elmconsole.length){
+                                                // resize height
+                                                elmcontainer.css({"height":content_cont+"px"});
+                                                elmeditor.css({"height":content_editor+"px"});
+                                                elmresize.css({"height":content_editor+"px"});
+                                                elmconsole.css({"height":content_editor+"px"});
+                                                elmconsole.css({"min-height":content_editor+"px"});
+                                                elmscreoll.css({"min-height":content_editor+"px"});
+                                                elmiframeback.css({"height":content_editor+"px"});
+                                            }
+                                        }, 1500);
+                                        if(w_window > 991){
+                                            $("html").attr("style", "overflow-y: hidden;");
+                                        }else{
+                                            $("html").attr("style", "overflow-y: auto;");
+                                        }
+                                    }
+                                    disableScroll();
+                                    $(window).resize(function(){
+                                        disableScroll();
+                                    });
+                                </script>
+                            </div><!-- .entry-content -->
+                        </article><!-- #post-## -->
+                    </main><!-- #main -->
+                </div><!-- #primary -->
+            </div><!-- #content -->
+        </div> <!-- .container -->
+
+    </div><!-- #page -->
+
+
+    
+    <!-- Shortcut keyboard - CTRL+Enter -->
+    <script>
+        function changeThemeAce(theme){
+            var container_out = $("#container-launchpad-out-id");
+            var btn_dark = $("#btn_change_theme_dark");
+            var btn_light = $("#btn_change_theme_light");
+            if(theme == "dark"){
+                btn_dark.hide();
+                btn_light.show();
+
+                container_out.removeClass("cont_light_style");
+                container_out.addClass("cont_dark_style");
+                
+                editor.setTheme("ace/theme/merbivore");
+                output_console.setTheme("ace/theme/merbivore");
+            }else{
+                btn_light.hide();
+                btn_dark.show();
+
+                container_out.removeClass("cont_dark_style");
+                container_out.addClass("cont_light_style");
+                
+                editor.setTheme("ace/theme/dreamweaver");
+                output_console.setTheme("ace/theme/dreamweaver");
+            }
+        }
+        
+        $(document).keydown(function(e){
+            if(e.ctrlKey && e.keyCode == 13){
+                fn_asyncWeb(0);
+            }
+        })
+    </script>
+
+    <div class="suffice-body-dimmer"></div>
+
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/skip-link-focus-fix.js?ver=20151215'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/swiper.jquery.min.js?ver=3.4.0'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/jquery.waypoints.min.js?ver=4.0.1'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/jquery.visible.min.js?ver=1.0.0'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/headroom.min.js?ver=0.9'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/jQuery.headroom.min.js?ver=0.9'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/perfect-scrollbar.jquery.min.js?ver=0.6.16'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/isotope.pkgd.min.js?ver=3.0.2'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/countUp.min.js?ver=1.8.3'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/smooth-scroll.min.js?ver=10.2.1'></script>
+    <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/gumshoe.min.js?ver=3.3.3'></script>
+    <!-- <script type='text/javascript' src='https://dev.alphien.com/wp-content/themes/suffice/assets/js/suffice-custom.min.js?ver=1.0'></script> -->
+    <script type='text/javascript' src='https://dev.alphien.com/wp-includes/js/wp-embed.min.js?ver=4.8.2'></script>
+
+</body>
+</html>

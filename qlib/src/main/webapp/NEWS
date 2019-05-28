@@ -1,0 +1,18 @@
+Changes in SinglePackageAl 18.06.2:
+
+o removed generateUserPackage from list of exported functions
+o .sourceAlFunction now loads private functions from qlib directly without packaging them
+o private package functionality temporarily disabled as functions are now directly sourced as per abo$
+
+
+Changes in SinglePackageAl 18.06.1:
+
+o more fixes for xts
+o roxygen argument added for generateUserPackage
+o added warning to remind user to package their personal functions
+
+Changes in SinglePackageAl 18.06.0:
+
+o  added NEWS file
+o  packaged and installed with R 3.4.3
+o  couple of fixes for xts compatibility issues

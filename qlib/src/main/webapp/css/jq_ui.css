@@ -1,0 +1,79 @@
+
+
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+
+
+.ui-widget-overlay {
+	background: #373838 url(../../images/menu/body-bg.png) repeat;
+	opacity: .60;
+	
+}
+
+.commdialog-dialog{
+	
+  border:1px solid #536474;
+  -moz-box-shadow:    0 2px 40px 0 rgba(0,0,0,.4);
+  -webkit-box-shadow:  0 2px 40px 0 rgba(0,0,0,.4);
+  box-shadow:         0 2px 40px 0 rgba(0,0,0,.4);
+  padding:0px;
+  border-radius:0px;
+
+}
+
+
+
+.commdialog-dialog .ui-widget-header {
+	 
+	background-color: #536474;
+	background-image:none;
+	color: #FAF7F7;
+	border-radius:0px;
+	border:0px;
+	
+	 
+}
+
+.commdialog-dialog .ui-dialog-titlebar {
+	padding:5px 10px 3px 10px;
+	margin:0px;
+	font-size:1.5em;
+}
+
+ 
+.commdialog-dialog .commdialog-dialog-body {
+	padding:2px;
+	margin:0px;
+}
+
+.commdialog-dialog .morepadding {
+	padding:20px;
+	 
+}
+
+.commdialog-dialog .dialogrow {
+	margin-top:10px;
+}
+
+.commdialog-dialog .ui-widget-content {
+	padding:2px;
+	margin:0px;
+}
+
+.commdialog-dialog .bottombtns {
+	text-align:right;
+}
+.commdialog-dialog .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
+	background-image: url(images/ui-icons_2694e8_256x240.png);
+}

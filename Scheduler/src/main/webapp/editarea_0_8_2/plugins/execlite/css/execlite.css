@@ -1,0 +1,21 @@
+#toolbar_1{
+	display:none;
+	
+}
+
+#toolbar_2{
+	display:none;
+	
+}
+#result{
+	 
+}
+
+.area_toolbar td.infos {
+ width:auto;	
+}
+
+#result {
+    border-left: 1px solid #888888;    
+     
+}
